@@ -52,11 +52,16 @@ public class Wallpapers : MonoBehaviour {
 		}
 		xml.Save(configPath+shortcutConfig);		
 		
-		
+		try{
 		TXnorth = GetTextureFromImage(data[0]);
 		TXeast = GetTextureFromImage(data[1]);
 		TXsouth = GetTextureFromImage(data[2]);
 		TXwest = GetTextureFromImage(data[3]);
+		}
+		catch(ArgumentOutOfRangeException e)
+		{
+			throw new Exception("Invalid configuration file: "+shortcutConfig);
+		}
 		
 		Debug.Log("Textures defined");
 		

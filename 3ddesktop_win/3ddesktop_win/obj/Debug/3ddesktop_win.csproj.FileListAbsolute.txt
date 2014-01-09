@@ -1,0 +1,4 @@
+D:\Users\Simon\Documents\GitHub\3ddesktop\3ddesktop_win\3ddesktop_win\bin\Debug\3ddesktop_win.dll
+D:\Users\Simon\Documents\GitHub\3ddesktop\3ddesktop_win\3ddesktop_win\bin\Debug\3ddesktop_win.pdb
+D:\Users\Simon\Documents\GitHub\3ddesktop\3ddesktop_win\3ddesktop_win\obj\Debug\3ddesktop_win.dll
+D:\Users\Simon\Documents\GitHub\3ddesktop\3ddesktop_win\3ddesktop_win\obj\Debug\3ddesktop_win.pdb

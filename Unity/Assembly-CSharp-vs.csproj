@@ -60,11 +60,11 @@
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
- <Reference Include="3DRoom">
- <HintPath>Assets\Assemblys\3DRoom.dll</HintPath>
- </Reference>
  <Reference Include="System.Drawing">
  <HintPath>Assets\Assemblys\System.Drawing.dll</HintPath>
+ </Reference>
+ <Reference Include="3ddesktop_win">
+ <HintPath>Assets\Assemblys\3ddesktop_win.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
