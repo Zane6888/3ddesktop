@@ -1,0 +1,9 @@
+<shortcut>
+  <name>test</name>
+  <path>C:\folder\a.txt</path>
+  <icon>1</icon>
+  <model>
+  </model>
+  <model_enable>false</model_enable>
+  <extension_standard>false</extension_standard>
+</shortcut>

@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Wallpapers.cs">
+    <Files>
+      <File FileName="Assets\Scripts\ReadConfig.cs" Line="17" Column="18" />
+      <File FileName="Assets\Scripts\ControlControl.cs" Line="13" Column="6" />
+      <File FileName="Assets\Scripts\Wallpapers.cs" Line="30" Column="4" />
+      <File FileName="Assets\Scripts\SCStorage.cs" Line="62" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
