@@ -57,11 +57,11 @@
      <Compile Include="Assets\Scripts\raycast.cs" />
      <Compile Include="Assets\Scripts\shortcuthit.cs" />
      <Compile Include="Assets\Scripts\start.cs" />
- <Reference Include="System.Drawing">
- <HintPath>Assets\Assemblys\System.Drawing.dll</HintPath>
- </Reference>
  <Reference Include="3ddesktop_win">
  <HintPath>Assets\Assemblys\3ddesktop_win.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Drawing">
+ <HintPath>Assets\Assemblys\System.Drawing.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
