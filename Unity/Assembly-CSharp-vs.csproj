@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Click.cs" />
      <Compile Include="Assets\Scripts\ControlControl.cs" />
      <Compile Include="Assets\Scripts\Crosshair.cs" />
+     <Compile Include="Assets\Scripts\IconGui.cs" />
      <Compile Include="Assets\Scripts\PauseGui.cs" />
      <Compile Include="Assets\Scripts\ReadConfig.cs" />
      <Compile Include="Assets\Scripts\SCStorage.cs" />
