@@ -60,7 +60,7 @@ public class Wallpapers : MonoBehaviour {
 		}
 		catch(ArgumentOutOfRangeException e)
 		{
-			throw new Exception("Invalid configuration file: "+shortcutConfig);
+			throw new Exception(FileNotFoundException);
 		}
 		
 		Debug.Log("Textures defined");
@@ -85,12 +85,16 @@ public class Wallpapers : MonoBehaviour {
 	{
 		XmlDocument xml = new XmlDocument();
 		XmlNode x = xml.CreateElement("wallpapers");
-		
+		for (int i = 0; i <= 4; i ++)
+		{
+		x.AppendChild(xml.CreateElement("wallpaper"));
 		xml.AppendChild(x);
+		}
 		xml.Save(configPath+shortcutConfig);
 		
 	}
-	
+
+
 	static Texture2D GetTextureFromImage(string path)
 	{
 		
