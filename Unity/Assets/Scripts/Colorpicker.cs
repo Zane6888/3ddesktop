@@ -7,6 +7,9 @@
 //     der Code erneut generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+/* this Class is invalid
+ * TODO finish
 using System;
 namespace AssemblyCSharp
 {
@@ -17,4 +20,4 @@ namespace AssemblyCSharp
 				}
 		}
 }
-
+*/

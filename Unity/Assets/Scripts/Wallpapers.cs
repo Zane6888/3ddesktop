@@ -60,7 +60,7 @@ public class Wallpapers : MonoBehaviour {
 		}
 		catch(ArgumentOutOfRangeException e)
 		{
-			throw new Exception(FileNotFoundException);
+			throw new FileNotFoundException();
 		}
 		
 		Debug.Log("Textures defined");

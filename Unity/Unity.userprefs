@@ -1,17 +1,11 @@
 ﻿<Properties>
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench />
-=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PauseGui.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Wallpapers.cs">
     <Files>
-      <File FileName="Assets\Scripts\Wallpapers.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\start.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PauseGui.cs" Line="33" Column="3" />
+      <File FileName="Assets\Scripts\Wallpapers.cs" Line="74" Column="36" />
+      <File FileName="Assets\Scripts\Colorpicker.cs" Line="12" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
->>>>>>> 13b6bcc4767950b94aa65c3aa56a1482433107a3
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
