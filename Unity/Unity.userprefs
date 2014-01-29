@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Wallpapers.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\IconGui.cs">
     <Files>
-      <File FileName="Assets\Scripts\Wallpapers.cs" Line="74" Column="36" />
-      <File FileName="Assets\Scripts\Colorpicker.cs" Line="12" Column="15" />
+      <File FileName="Assets\Scripts\raycast.cs" Line="34" Column="54" />
+      <File FileName="Assets\Scripts\IconGui.cs" Line="30" Column="92" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

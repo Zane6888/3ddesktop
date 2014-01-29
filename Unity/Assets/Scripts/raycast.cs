@@ -5,6 +5,7 @@ public class raycast : MonoBehaviour {
 
 	// Use this for initialization
 	public GameObject Cam;
+	public GameObject player;
 	public string hitname;
 	private GameObject carriedObject;
 	
@@ -31,6 +32,7 @@ public class raycast : MonoBehaviour {
 				{
 					Debug.Log(hit.collider.gameObject.name);
 					hit.collider.GetComponents<shortcuthit>()[0].run();
+
 				}
 			}
 		}
@@ -46,9 +48,11 @@ public class raycast : MonoBehaviour {
 				Debug.Log(hit.collider.gameObject.transform.position+":"+hit.collider.gameObject.transform.localScale);
 				if(hit.collider.tag == "shortcut" && carriedObject == null)
 				{
-					carriedObject = hit.collider.gameObject;
+					/*carriedObject = hit.collider.gameObject;
 					start.store.fillPlaceHolders("objectmove");
-					start.store.removeShortCut(carriedObject);
+					start.store.removeShortCut(carriedObject);*/
+
+					IconGui.i.showFor(player,hit.collider.gameObject);
 				}
 				
 				if(hit.collider.tag == "objectmove" && carriedObject != null)
