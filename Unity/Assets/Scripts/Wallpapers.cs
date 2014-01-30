@@ -17,33 +17,50 @@ public class Wallpapers : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
 		
-		
-		
-		
+		try
+		{
+			setwallpapers();
+		}
+		catch (FileNotFoundException fnfe)
+		{
+			Debug.Log("wallpaper.xml not found. generating...");
+
+			genConfig();
+			Debug.Log("wallpaper.xml generated. Now starting to paint...");
+			setwallpapers();
+
+		}
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+	void setwallpapers ()
+	{
 		XmlDocument xml = new XmlDocument();
 		try{
-		xml.Load(configPath+shortcutConfig);
+			xml.Load(configPath+shortcutConfig);
 		}
 		catch(Exception e)
 		{
-			genConfig();
-			xml.Load(configPath+shortcutConfig);
+			throw new FileNotFoundException();
 		}
 		List<string> data = new List<string>();
 		string path = "";
-		Debug.Log(xml.ToString());
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
-			Debug.Log(n1.Name+"/"+n1.InnerXml);
 			foreach(XmlNode n2 in n1.ChildNodes)
 			{
-				
 				switch(n2.Name)
 				{
+			    
 				case "path":
 					path = n2.InnerText;
-					Debug.Log("Got texture path: " + path);
+					Debug.Log("Got wallpaper path: " + path);
 					break;
 				}
 				
@@ -53,15 +70,17 @@ public class Wallpapers : MonoBehaviour {
 		xml.Save(configPath+shortcutConfig);		
 		
 		try{
-		TXnorth = GetTextureFromImage(data[0]);
-		TXeast = GetTextureFromImage(data[1]);
-		TXsouth = GetTextureFromImage(data[2]);
-		TXwest = GetTextureFromImage(data[3]);
+			TXnorth = GetTextureFromImage(data[0]);
+			TXeast = GetTextureFromImage(data[1]);
+			TXsouth = GetTextureFromImage(data[2]);
+			TXwest = GetTextureFromImage(data[3]);
 		}
 		catch(ArgumentOutOfRangeException e)
 		{
 			throw new FileNotFoundException();
 		}
+		
+		
 		
 		Debug.Log("Textures defined");
 		
@@ -72,26 +91,32 @@ public class Wallpapers : MonoBehaviour {
 		GameObject.Find("WestWall").renderer.material.mainTexture = TXwest;
 		
 		Debug.Log("Wallpapers are now colored");
-		
-		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
+
 	void genConfig()
 	{
 		XmlDocument xml = new XmlDocument();
 		XmlNode x = xml.CreateElement("wallpapers");
-		for (int i = 0; i <= 4; i ++)
-		{
-		x.AppendChild(xml.CreateElement("wallpaper"));
 		xml.AppendChild(x);
-		}
+
+		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.LastChild.AppendChild(xml.CreateElement("path"));
+		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\northwall.jpg";
+
+		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.LastChild.AppendChild(xml.CreateElement("path"));
+		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\eastwall.jpg";
+
+		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.LastChild.AppendChild(xml.CreateElement("path"));
+		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\southwall.jpg";
+
+		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.LastChild.AppendChild(xml.CreateElement("path"));
+		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\westwall.jpg";
+
+
 		xml.Save(configPath+shortcutConfig);
-		
 	}
 
 
