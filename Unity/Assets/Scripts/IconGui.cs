@@ -27,10 +27,32 @@ public class IconGui : MonoBehaviour {
 	public void showFor(GameObject player,GameObject shortCut)
 	{
 		Vector3 sLoc = shortCut.transform.position;
+		GameObject menu = right;
+
+
 		while(currentMenu.Count != 0)
 		{
 			Destroy(currentMenu[0]);
 			currentMenu.RemoveAt(0);
+		}
+		//todo
+		switch(shortCut.transform.rotation)
+		{
+		case Quaternion.AngleAxis(Vector3.up,0):
+
+			break;
+		case Quaternion.AngleAxis(Vector3.up,90):
+			
+			break;
+		case Quaternion.AngleAxis(Vector3.up,180):
+			
+			break;
+		case Quaternion.AngleAxis(Vector3.up,-90):
+			
+			break;
+		default:
+			throw new UnityException("you fucked up pretty hard");
+			break;
 		}
 		int i = 0;
 		foreach(string s in points)
