@@ -4,9 +4,9 @@
     *.pidb
     *.unityproj
     .DS_Store
-    /Library/FailedAssetImports.txt
-    /Library/cache/
-    /Library/previews/
-    /Library/ScriptAssemblies
+    Unity/Library/FailedAssetImports.txt
+    Unity/Library/cache/
+    Unity/Library/previews/
+    Unity/Library/ScriptAssemblies/*.dll
     /obj
     /Temp
