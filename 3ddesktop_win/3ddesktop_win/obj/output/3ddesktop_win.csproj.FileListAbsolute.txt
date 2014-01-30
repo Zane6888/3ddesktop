@@ -1,3 +1,0 @@
-D:\Users\Simon\Documents\GitHub\3ddesktop\3ddesktop_win\Unity\Assets\Assemblys\3ddesktop_win.dll
-D:\Users\Simon\Documents\GitHub\3ddesktop\3ddesktop_win\3ddesktop_win\obj\output\3ddesktop_win.dll
-D:\Users\Simon\Documents\GitHub\3ddesktop\Unity\Assets\Assemblys\3ddesktop_win.dll
