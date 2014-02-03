@@ -16,16 +16,16 @@ public class Crosshair : MonoBehaviour {
 	// Use this for initialization
 	
 	void Start () {
-		ChangeColor();
+		ChangeColor(255,255,255,255);
 	}
 
 	
-	void ChangeColor () {
+	public void ChangeColor (int r, int g, int b, int a) {
 		crosshair_shown = new Texture2D(crosshair.width, crosshair.height);
 		colwhite = new Color(1,1,1,1);
 		colblack = new Color(0,0,0,1);
 		coltrans = new Color(1,1,1,0);
-		colcustom = ColorRGBtoDecimal(255,255,255,255);
+		colcustom = ColorRGBtoDecimal(r,g,b,a);
 		for(int i=0; i < crosshair.width; i ++)
 		{
 			for (int j=0; j < crosshair.height; j++)
@@ -59,7 +59,7 @@ public class Crosshair : MonoBehaviour {
 
 	Color ColorRGBtoDecimal (int r, int g, int b, int a)
 	{
-		Color col = new Color (r/255, g/255, b/255, a/255);
+		Color col = new Color (r/255f, g/255f, b/255f, a/255f);
 		return col;
 	}
 

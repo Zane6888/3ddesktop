@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+
 
 public class PauseGui : MonoBehaviour {
 	
@@ -92,6 +94,56 @@ public class PauseGui : MonoBehaviour {
 
 	void ApplyCursor()
 	{
+		try
+		{
+		int intred = Convert.ToInt16(Red);
+		int intgreen = Convert.ToInt16(Green);
+		int intblue = Convert.ToInt16(Blue);
+		int intalpha = Convert.ToInt16(Alpha);
+
+		if (intred > 255)
+		{
+			intred = 255;
+		}
+		else if (intred < 0)
+		{
+			intred = 0;
+		}
+
+		if (intgreen > 255)
+		{
+			intgreen = 255;
+		}
+		else if (intgreen < 0)
+		{
+			intgreen = 0;
+		}
+
+		if (intblue > 255)
+		{
+			intblue = 255;
+		}
+		else if (intblue < 0)
+		{
+			intblue = 0;
+		}
+
+		if (intalpha > 255)
+		{
+			intalpha = 255;
+		}
+		else if (intalpha < 0)
+		{
+			intalpha = 0;
+		}
+
+		cc.cross.ChangeColor(intred,intgreen,intblue,intalpha);
+
+		}
+		catch (Exception e)
+		{
+			Debug.Log ("Can't use this color for the Crosshair. Did you set a string instead of a number in the options?");
+		}
 	}
 
 	void BackCursor()
