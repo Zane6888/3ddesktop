@@ -25,7 +25,7 @@ public class Crosshair : MonoBehaviour {
 		colwhite = new Color(1,1,1,1);
 		colblack = new Color(0,0,0,1);
 		coltrans = new Color(1,1,1,0);
-		colcustom = new Color(1,0,0,1);;
+		colcustom = ColorRGBtoDecimal(255,255,255,255);
 		for(int i=0; i < crosshair.width; i ++)
 		{
 			for (int j=0; j < crosshair.height; j++)
@@ -56,7 +56,13 @@ public class Crosshair : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
-	
+
+	Color ColorRGBtoDecimal (int r, int g, int b, int a)
+	{
+		Color col = new Color (r/255, g/255, b/255, a/255);
+		return col;
+	}
+
 	void OnGUI()
 	{
 		/*
