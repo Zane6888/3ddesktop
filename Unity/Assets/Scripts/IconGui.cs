@@ -36,7 +36,7 @@ public class IconGui : MonoBehaviour {
 			currentMenu.RemoveAt(0);
 		}
 		//todo
-		switch(shortCut.transform.rotation)
+/*		switch(shortCut.transform.rotation)
 		{
 		case Quaternion.AngleAxis(Vector3.up,0):
 
@@ -53,7 +53,7 @@ public class IconGui : MonoBehaviour {
 		default:
 			throw new UnityException("you fucked up pretty hard");
 			break;
-		}
+		}*/
 		int i = 0;
 		foreach(string s in points)
 		{
