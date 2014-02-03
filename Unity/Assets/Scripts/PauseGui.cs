@@ -9,6 +9,8 @@ public class PauseGui : MonoBehaviour {
 	// Use this for initialization
 	public bool showCursorChGUI = false;
 	public bool showOptionsGUI = false;
+	public bool showShutdownGUI = false;
+	public bool showControlsGUI = false;
 
 	public string Red = "R";
 	public string Green = "G";
@@ -26,22 +28,46 @@ public class PauseGui : MonoBehaviour {
 	
 	void OnGUI()
 	{
-		GUI.Box(new Rect(Screen.width/2 - 100,Screen.height/2 - 50,200,210),"");	
-		if(GUI.Button(new Rect(Screen.width/2 - 50,Screen.height/2 -25,100,50),"Continue"))
+		GUI.Box(new Rect(Screen.width/2 - 100,Screen.height/2 - 105,200,265),"");	
+		if(GUI.Button(new Rect(Screen.width/2 - 55,Screen.height/2 -80,110,50),"Continue"))
 			Close();
-		if(GUI.Button (new Rect(Screen.width/2-50,Screen.height/2 +30,100,50),"Options"))
+		if(GUI.Button (new Rect (Screen.width/2-55,Screen.height/2 -25,110,50),"Shutdown Option"))
+			ShutdownOptions();
+		if(GUI.Button (new Rect(Screen.width/2-55,Screen.height/2 +30,110,50),"Options"))
 			Options();
-		if(GUI.Button(new Rect(Screen.width/2 -50, Screen.height/2+85,100,50),"End"))
+		if(GUI.Button(new Rect(Screen.width/2 -55, Screen.height/2+85,110,50),"End"))
 			End ();
 
-		if(!showOptionsGUI)return;
-		GUI.Box (new Rect(Screen.width/2 + 110, Screen.height/2 + 5,200,155),"");
+		if(showShutdownGUI)
+		{
+			GUI.Box (new Rect(Screen.width/2 +110,Screen.height/2 -50,200,210),"");
+			if(GUI.Button (new Rect (Screen.width/2 +160,Screen.height/2+85,100,50),"Back"))
+			   BackShutdown();
+		}
+
+		if(showOptionsGUI)
+		{
+		GUI.Box (new Rect(Screen.width/2 + 110, Screen.height/2 -50,200,210),"");
+		if(GUI.Button (new Rect(Screen.width/2+160, Screen.height/2 -25,100,50),"Controls"))
+			Controls();
 		if(GUI.Button (new Rect (Screen.width/2 +160, Screen.height/2 + 30, 100,50),"Change Cursor"))
 			ChCursor ();
 		if(GUI.Button (new Rect (Screen.width /2 + 160, Screen.height /2 +85, 100,50),"Back"))
 			BackOptions();
+		}
 
-		if(!showCursorChGUI)return;
+
+
+		if(showControlsGUI)
+		{
+			GUI.Box (new Rect(Screen.width/2+320,Screen.height/2 -50,200,210),"");
+			if(GUI.Button (new Rect(Screen.width/2+370,Screen.height/2+85,100,50),"Back"))
+				BackControls();
+		}
+
+
+		if(showCursorChGUI)
+		{
 		GUI.Box (new Rect(Screen.width/2+320,Screen.height/2 -50,200,210),"");
 		Red = GUI.TextField (new Rect(Screen.width/2+340, Screen.height/2 -25,80,20),Red,3);
 		Green = GUI.TextField (new Rect(Screen.width/2+425, Screen.height/2-25,80,20),Green,3);
@@ -51,27 +77,60 @@ public class PauseGui : MonoBehaviour {
 			ApplyCursor();
 		if(GUI.Button (new Rect(Screen.width/2 +370,Screen.height/2 +85,100,50),"Back"))
 			BackCursor();
-
+		}
 
 	}
 	
 	void Close()
 	{
+		showShutdownGUI = false;
 		showCursorChGUI = false;
 		showOptionsGUI = false;
+		showControlsGUI =false;
 		cc.toNormal();
+	}
+
+	void ShutdownOptions()
+	{
+		if(showShutdownGUI == false)
+		{
+			showControlsGUI =false;
+			showCursorChGUI =false;
+			showOptionsGUI =false;
+			showShutdownGUI =true;
+		}
+		else
+		{
+			showShutdownGUI =false;
+		}
 	}
 
 	void Options()
 	{
 		if(showOptionsGUI == false)
 		{
+			showShutdownGUI = false;
 			showOptionsGUI = true;
 		}
 		else
 		{
 			showCursorChGUI = false;
+			showControlsGUI = false;
 			showOptionsGUI = false;
+		}
+	}
+
+
+	void Controls()
+	{
+		if (showControlsGUI ==false)
+		{
+			showCursorChGUI =false;
+			showControlsGUI = true;
+		}
+		else
+		{
+			showControlsGUI = false;
 		}
 	}
 
@@ -79,17 +138,28 @@ public class PauseGui : MonoBehaviour {
 	{
 		if (showCursorChGUI == false)
 		{
+			showControlsGUI = false;
 			showCursorChGUI = true;
 		}
 		else
 			showCursorChGUI = false;
 	}
 
+	void BackShutdown()
+	{
+		showShutdownGUI = false;
+	}
+
 	void BackOptions()
 	{
-
+		showControlsGUI = false;
 		showCursorChGUI = false;
 		showOptionsGUI = false;
+	}
+
+	void BackControls()
+	{
+		showControlsGUI = false;
 	}
 
 	void ApplyCursor()
