@@ -8,6 +8,11 @@ public class PauseGui : MonoBehaviour {
 	public bool showCursorChGUI = false;
 	public bool showOptionsGUI = false;
 
+	public string Red = "R";
+	public string Green = "G";
+	public string Blue = "B";
+	public string Alpha = "A";
+
 	void Start () {
 	
 	}
@@ -35,7 +40,13 @@ public class PauseGui : MonoBehaviour {
 			BackOptions();
 
 		if(!showCursorChGUI)return;
-		GUI.Box (new Rect(Screen.width/2+320,Screen.height/2 +60,200,100),"");
+		GUI.Box (new Rect(Screen.width/2+320,Screen.height/2 -50,200,210),"");
+		Red = GUI.TextField (new Rect(Screen.width/2+340, Screen.height/2 -25,80,20),Red,3);
+		Green = GUI.TextField (new Rect(Screen.width/2+425, Screen.height/2-25,80,20),Green,3);
+		Blue = GUI.TextField (new Rect(Screen.width/2+340,Screen.height/2,80,20),Blue,3);
+		Alpha = GUI.TextField (new Rect(Screen.width/2+425,Screen.height/2,80,20),Alpha,3);
+		if(GUI.Button (new Rect (Screen.width/2 +370, Screen.height/2 +30,100,50),"Apply"))
+			ApplyCursor();
 		if(GUI.Button (new Rect(Screen.width/2 +370,Screen.height/2 +85,100,50),"Back"))
 			BackCursor();
 
@@ -77,6 +88,10 @@ public class PauseGui : MonoBehaviour {
 
 		showCursorChGUI = false;
 		showOptionsGUI = false;
+	}
+
+	void ApplyCursor()
+	{
 	}
 
 	void BackCursor()
