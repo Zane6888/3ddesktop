@@ -17,6 +17,8 @@ public class PauseGui : MonoBehaviour {
 	public string Blue = "B";
 	public string Alpha = "A";
 
+	public Texture2D Preview = new Texture2D(70,100);
+
 	void Start () {
 	
 	}
@@ -73,9 +75,10 @@ public class PauseGui : MonoBehaviour {
 		Green = GUI.TextField (new Rect(Screen.width/2+425, Screen.height/2-25,80,20),Green,3);
 		Blue = GUI.TextField (new Rect(Screen.width/2+340,Screen.height/2,80,20),Blue,3);
 		Alpha = GUI.TextField (new Rect(Screen.width/2+425,Screen.height/2,80,20),Alpha,3);
-		if(GUI.Button (new Rect (Screen.width/2 +370, Screen.height/2 +30,100,50),"Apply"))
+		GUI.DrawTexture (new Rect(Screen.width/2 + 430, Screen.height/2 +30, 70,100),Preview);
+		if(GUI.Button (new Rect (Screen.width/2 +340, Screen.height/2 +30,80,50),"Apply"))
 			ApplyCursor();
-		if(GUI.Button (new Rect(Screen.width/2 +370,Screen.height/2 +85,100,50),"Back"))
+		if(GUI.Button (new Rect(Screen.width/2 +340,Screen.height/2 +85,80,50),"Back"))
 			BackCursor();
 		}
 
