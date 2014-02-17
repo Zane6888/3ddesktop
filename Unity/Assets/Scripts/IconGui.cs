@@ -66,17 +66,20 @@ public class IconGui : MonoBehaviour {
 		int i = 0;
 		Debug.Log(menu == right ? "right" : "left");
 		Quaternion finalRot = cam.transform.rotation * Quaternion.Euler(0,360-player.transform.rotation.eulerAngles.x,0);
+		GameObject container = new GameObject();
 
 		foreach(string s in points)
 		{
 
-			GameObject o = (GameObject)Instantiate(menu,new Vector3(sLoc.x +0.1f,sLoc.y + i * 0.21f,sLoc.z+0.1f) + add,finalRot);
+			GameObject o = (GameObject)Instantiate(menu,new Vector3(0,i * 0.21f,0),new Quaternion());
+			o.transform.parent = container.transform;
 			TextMesh txt = (TextMesh)o.transform.FindChild("text").GetComponent(typeof (TextMesh));
 			txt.text = s;
 			currentMenu.Add(o);
 			i++;
 		}
-
+		container.transform.position = new Vector3(sLoc.x +0.1f,sLoc.y,sLoc.z+0.1f) + add;
+		container.transform.rotation = finalRot;
 
 	}
 
