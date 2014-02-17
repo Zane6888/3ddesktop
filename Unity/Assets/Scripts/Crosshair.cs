@@ -50,7 +50,21 @@ public class Crosshair : MonoBehaviour {
 
 		}
 		crosshair_shown.Apply ();
-		//Debug.Log ("Crozzhiar colrz apiplizd");
+
+
+		var colors = new Color[1];
+		colors[0] = colcustom;
+		Debug.Log ("Width = " + cc.pausegui.Preview.width);
+		Debug.Log ("Height = " + cc.pausegui.Preview.height);
+		for (int i = 0; i < cc.pausegui.Preview.height; i ++)
+		{
+			for (int j = 0; j < cc.pausegui.Preview.width; j ++)
+			{
+				cc.pausegui.Preview.SetPixel (i, j, colcustom);
+			}
+		}
+		cc.pausegui.Preview.Apply();
+		Debug.Log ("Preview applyed");
 	}
 	
 	// Update is called once per frame

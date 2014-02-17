@@ -19,13 +19,13 @@ public class PauseGui : MonoBehaviour {
 
 	public Texture2D Preview = new Texture2D(70,100);
 
+
+
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 	
 	void OnGUI()
@@ -211,7 +211,8 @@ public class PauseGui : MonoBehaviour {
 		}
 
 		cc.cross.ChangeColor(intred,intgreen,intblue,intalpha);
-
+		
+		
 		}
 		catch (Exception e)
 		{
