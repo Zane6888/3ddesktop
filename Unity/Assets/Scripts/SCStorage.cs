@@ -62,7 +62,8 @@ public class SCStorage{
 		shortcuts[wall][x,y] = shortCut;
 		shortCut.transform.position = (startPoints[wall] + x * horizontalAdd[wall] + y * verticalAdd[wall]);
 		//Debug.Log (shortCut.transform.position);
-		shortCut.transform.rotation = (shortcutRotation[wall]);		
+		shortCut.transform.rotation = (shortcutRotation[wall]);
+		shortCut.GetComponent<ShortcutScript>().moved();
 	}
 	
 	public void removeShortCut(GameObject shortCut)

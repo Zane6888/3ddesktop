@@ -31,7 +31,7 @@ public class raycast : MonoBehaviour {
 				if(hit.collider.tag == "shortcut" && carriedObject == null)
 				{
 					Debug.Log(hit.collider.gameObject.name);
-					hit.collider.GetComponents<shortcuthit>()[0].run();
+					hit.collider.gameObject.GetComponent<ShortcutScript>().data.run();
 
 				}
 			}

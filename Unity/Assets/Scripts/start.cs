@@ -10,6 +10,7 @@ using _3DRoom;
 public class start : MonoBehaviour {
 	
 	public GameObject shortc;
+	public GameObject scName;
 	//public GameObject room;
 	public UnityEngine.Font font;
 	public string noicon = "416e09677f119c42bcced015bc3f3b2c";
@@ -49,6 +50,7 @@ public class start : MonoBehaviour {
 			try{		
 				String s = file;
 				string ext = new FileInfo(file).Extension;
+				string name = new FileInfo(file).Name;
 				if(ext == ".lnk")
 				{		
 					s = FileHelper.GetShortcutTargetFile(file);
@@ -64,9 +66,18 @@ public class start : MonoBehaviour {
 				r = (GameObject)Instantiate(shortc,new Vector3((float)(i%countx + 1) * xadd ,
 						yadd * (float)(Math.Floor((double)i/countx)+1),0f),Quaternion.identity);
 				//Debug.Log("dcount:"+d.Count);
-				if(d.Find(da => {return da.path == s;}) != null)				
-					r.renderer.material = d.Find(da => {return da.path == s;}).getMaterial();				
-				else if(File.Exists(ShortcutData.iconPath+@"\"+ext.Substring(1)+".png"))
+				ShortcutData sd;
+				if(d.Find(da => {return da.path == s;}) != null)
+				{
+					sd = d.Find(da => {return da.path == s;});
+					r.GetComponent<ShortcutScript>().data = sd;
+					r.renderer.material = r.GetComponent<ShortcutScript>().data.getMaterial();
+				}
+				else {
+					sd = new ShortcutData();
+					r.GetComponent<ShortcutScript>().data = sd;
+					sd.path = s;
+					if(File.Exists(ShortcutData.iconPath+@"\"+ext.Substring(1)+".png"))
 					{
 						tex = new Texture2D(img.width,img.height);
 						tex.LoadImage(File.ReadAllBytes(ShortcutData.iconPath+@"\"+ext.Substring(1)+".png"));
@@ -78,10 +89,9 @@ public class start : MonoBehaviour {
 						else
 							r.renderer.material.mainTexture = tex;						
 					}
-				
-					
-				r.GetComponent<shortcuthit>().target = s;
-	
+				}
+				sd.nameObject = (GameObject)Instantiate(scName,r.transform.position,r.transform.rotation);
+				sd.name = name;
 				//newText(s,2 * (i%20) - 45 ,2 * (int)Math.Floor(i/20m)+ 6,40);
 				store.addShortCut(r,0,i%15,(int)Math.Floor(i/15m));	
 			}
