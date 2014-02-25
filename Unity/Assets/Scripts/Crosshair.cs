@@ -26,6 +26,8 @@ public class Crosshair : MonoBehaviour {
 		colblack = new Color(0,0,0,1);
 		coltrans = new Color(1,1,1,0);
 		colcustom = ColorRGBtoDecimal(r,g,b,a);
+
+
 		for(int i=0; i < crosshair.width; i ++)
 		{
 			for (int j=0; j < crosshair.height; j++)
@@ -52,8 +54,7 @@ public class Crosshair : MonoBehaviour {
 		crosshair_shown.Apply ();
 
 
-		var colors = new Color[1];
-		colors[0] = colcustom;
+
 		Debug.Log ("Width = " + cc.pausegui.Preview.width);
 		Debug.Log ("Height = " + cc.pausegui.Preview.height);
 		for (int i = 0; i < cc.pausegui.Preview.height; i ++)
@@ -66,6 +67,8 @@ public class Crosshair : MonoBehaviour {
 		cc.pausegui.Preview.Apply();
 		Debug.Log ("Preview applyed");
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () {

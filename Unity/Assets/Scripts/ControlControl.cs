@@ -7,8 +7,10 @@ public class ControlControl : MonoBehaviour {
 	public Crosshair cross;
 	public GameObject player;
 	public raycast ray;
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 	cross.cc = this;
 	pausegui.cc = this;
 	ray.cc = this;
@@ -19,7 +21,7 @@ public class ControlControl : MonoBehaviour {
 	
 		if(Input.GetKeyDown(KeyCode.Escape))
 			pause();
-		
+
 	}
 	
 	public void toNormal()
@@ -36,6 +38,7 @@ public class ControlControl : MonoBehaviour {
 		cross.enabled = false;
 		setPlayerEnabled(false);
 		ray.enabled = false;	
+		//cross.gimmeThoseSizes();
 	}
 	
 	public void setPlayerEnabled(bool enabled)
