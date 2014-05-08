@@ -8,6 +8,7 @@ public class raycast : MonoBehaviour {
 	public GameObject player;
 	public string hitname;
 	private GameObject carriedObject;
+	private GameObject currentMenuObject;
 	
 	public ControlControl cc;
 	//public GameObject room;
@@ -34,6 +35,10 @@ public class raycast : MonoBehaviour {
 					hit.collider.gameObject.GetComponent<ShortcutScript>().data.run();
 
 				}
+				if(hit.collider.tag == "menu_rename" && carriedObject == null)
+				{
+
+				}
 			}
 		}
 		
@@ -53,6 +58,7 @@ public class raycast : MonoBehaviour {
 					start.store.removeShortCut(carriedObject);*/
 
 					IconGui.i.showFor(player,hit.collider.gameObject);
+					currentMenuObject = hit.collider.gameObject;
 				}
 				
 				if(hit.collider.tag == "objectmove" && carriedObject != null)

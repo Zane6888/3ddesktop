@@ -16,12 +16,8 @@ public class IconGui : MonoBehaviour {
 		points = new List<string>();
 		points.Add("move");
 		points.Add("delete");
+		points.Add("rename");
 		currentMenu = new List<GameObject>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
 	public void showFor(GameObject player,GameObject shortCut)
@@ -72,6 +68,7 @@ public class IconGui : MonoBehaviour {
 		{
 
 			GameObject o = (GameObject)Instantiate(menu,new Vector3(0,i * 0.21f,0),new Quaternion());
+			o.tag = "menu_" + s;
 			o.transform.parent = container.transform;
 			TextMesh txt = (TextMesh)o.transform.FindChild("text").GetComponent(typeof (TextMesh));
 			txt.text = s;

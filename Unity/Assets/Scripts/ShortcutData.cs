@@ -54,6 +54,20 @@ public class ShortcutData
 		txt.text = name;
 	}
 
+	public void rename(string newName, bool keepOSFilename)
+	{
+		setName(newName);
+		string oldPath = path;
+
+		if(!keepOSFilename)
+		{
+			path = oldPath.Replace(Path.GetFileName(),newName);
+			File.Move(oldPath,path);
+		}
+
+		ReadConfig.updateConfig(oldPath,this);
+	}
+
 	public Material getMaterial()
 	{
 		string p;

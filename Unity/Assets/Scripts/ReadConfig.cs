@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public static class ReadConfig
 {
 	public static string configPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\config\";
 	public static string shortcutConfig = "shortcut.xml";
+
+	public static List<ShortcutData> currentConfig;
+
+
 	public static List<ShortcutData> getShortcutData()
 	{
 		Debug.Log("Reading xml");
@@ -71,7 +76,54 @@ public static class ReadConfig
 			data.Add(d);
 		}
 		xml.Save(configPath+shortcutConfig);
+		currentConfig = data;
 		return data;
+	}
+
+	public static void updateConfig(string oldPath, ShortcutData newData)
+	{
+		currentConfig.RemoveAll(s => s.path == oldPath);
+		currentConfig.Add(newData);
+
+	}
+
+	private static void writeCurrentConfig()
+	{
+		XmlDocument xml = new XmlDocument();
+		XmlNode baseNode = xml.CreateElement("shortcuts");
+		foreach(ShortcutData s in currentConfig)
+		{
+			XmlNode shortcut = xml.CreateElement("shortcut");
+			baseNode.AppendChild(shortcut);
+
+			XmlNode x = xml.CreateElement("name");
+			x.InnerText = s.name;
+			shortcut.AppendChild(x);
+
+			x = xml.CreateElement("path");
+			x.InnerText = s.path;
+			shortcut.AppendChild(x);
+
+			x = xml.CreateElement("icon");
+			x.InnerText = s.iconId+"";
+			shortcut.AppendChild(x);
+
+			/*
+			x = xml.CreateElement("model");
+			TODO
+			shortcut.AppendChild(x);
+			*/
+
+			x = xml.CreateElement("model_enable");
+			x.InnerText = s.modelEnabled ? "true" : "flase";
+			shortcut.AppendChild(x);
+
+			x = xml.CreateElement("extension_standard");
+			x.InnerText = s.extensionStandard ? "true" : "flase";
+			shortcut.AppendChild(x);
+		}
+
+		xml.Save(configPath+shortcutConfig);
 	}
 	
 	public static void createConfig()
