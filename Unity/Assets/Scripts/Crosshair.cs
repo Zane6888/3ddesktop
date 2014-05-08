@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
+using System.Xml;
 using System.Collections;
+using System.IO;
+using System;
+using System.Collections.Generic;
 
 public class Crosshair : MonoBehaviour {
 	
@@ -11,12 +15,27 @@ public class Crosshair : MonoBehaviour {
 	public Texture2D crosshair_shown;
 
 	public ControlControl cc;
-
+	public static string configPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\config\";
+	public static string shortcutConfig = "crosshair.xml";
 
 	// Use this for initialization
 	
 	void Start () {
 		ChangeColor(255,255,255,255);
+
+		try
+		{
+			setcrosshair();
+		}
+		catch (FileNotFoundException fnfe)
+		{
+			Debug.Log("crosshair.xml not found. generating...");
+			
+			genConfig();
+			Debug.Log("crosshair.xml generated. Now starting to paint...");
+			setcrosshair();
+		}
+
 	}
 
 	
@@ -68,7 +87,6 @@ public class Crosshair : MonoBehaviour {
 		Debug.Log ("Preview applyed");
 	}
 
-
 	
 	// Update is called once per frame
 	void Update () {
@@ -110,5 +128,63 @@ public class Crosshair : MonoBehaviour {
 		
 		
 		GUI.DrawTexture (new Rect(xMin,yMin,crosshair_shown.width, crosshair_shown.height),crosshair_shown);
+	}
+
+	public void setcrosshair()
+	{
+		XmlDocument xml = new XmlDocument();
+		try{
+			xml.Load(configPath+shortcutConfig);
+		}
+		catch(Exception e)
+		{
+			throw new FileNotFoundException();
+		}
+		string data = "";
+		string path = "";
+		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
+		{
+			if(n1.Name =="path")
+				{
+					path = n1.InnerText;
+					Debug.Log("Got crosshair path: " + path);
+					break;
+				}
+			data = path;
+		}
+		xml.Save(configPath+shortcutConfig);		
+		
+		try
+		{
+			crosshair = GetTextureFromImage(data);
+		}
+		catch(ArgumentOutOfRangeException e)
+		{
+			throw new FileNotFoundException();
+		}
+		ChangeColor(255,255,255,255);
+	}
+
+	public void genConfig()
+	{
+		XmlDocument xml = new XmlDocument();
+		XmlNode x = xml.CreateElement("crosshair");
+		xml.AppendChild(x);
+		
+		//x.AppendChild(xml.CreateElement("wallpaper"));
+		x.AppendChild(xml.CreateElement("path"));
+		x.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\crosshair.png";
+		
+		xml.Save(configPath+shortcutConfig);
+	}
+
+	static Texture2D GetTextureFromImage(string path)
+	{
+		int xlenght;
+		int ylenght;
+		//set xlength and ylength to the lenght of the picture on the path "path"
+		Texture2D texture = new Texture2D(xlength, ylenght);
+		texture.LoadImage(File.ReadAllBytes(path));
+		return texture;
 	}
 }
