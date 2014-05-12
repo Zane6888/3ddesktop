@@ -4,6 +4,7 @@ using System.Collections;
 public class ControlControl : MonoBehaviour {
 	
 	public PauseGui pausegui;
+	public RenameGui renameGui;
 	public Crosshair cross;
 	public GameObject player;
 	public raycast ray;
@@ -20,12 +21,18 @@ public class ControlControl : MonoBehaviour {
 	void Update () {
 	
 		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			pausegui.enabled = true;
 			pause();
+		}
 
 	}
 	
 	public void toNormal()
 	{
+
+		Screen.lockCursor = true;
+		renameGui.enabled = false;
 		pausegui.enabled = false;	
 		cross.enabled = true;
 		setPlayerEnabled(true);
@@ -34,7 +41,7 @@ public class ControlControl : MonoBehaviour {
 	
 	public void pause()
 	{
-		pausegui.enabled = true;
+		Screen.lockCursor = false;
 		cross.enabled = false;
 		setPlayerEnabled(false);
 		ray.enabled = false;	
@@ -53,6 +60,12 @@ public class ControlControl : MonoBehaviour {
 	void onApplicationFocus(bool hasfocus)
 	{
 		if(!hasfocus)
+		{
+			pausegui.enabled = true;
 			pause();
+		}else
+		{
+			toNormal();
+		}
 	}
 }

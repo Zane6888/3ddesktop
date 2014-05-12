@@ -22,7 +22,6 @@ public class raycast : MonoBehaviour {
 		
 		if(Input.GetMouseButtonUp(0))
 		{
-			Screen.lockCursor = true;
 			RaycastHit hit;
 			Vector3 rayDirection = Cam.transform.forward;
 			Ray selectionRay = new Ray(Cam.transform.position, rayDirection);
@@ -37,7 +36,8 @@ public class raycast : MonoBehaviour {
 				}
 				if(hit.collider.tag == "menu_rename" && carriedObject == null)
 				{
-
+					cc.renameGui.enabled = true;
+					cc.pause();
 				}
 			}
 		}

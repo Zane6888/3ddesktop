@@ -61,7 +61,7 @@ public class ShortcutData
 
 		if(!keepOSFilename)
 		{
-			//path = oldPath.Replace(Path.GetFileName(path),newName);
+			path = oldPath.Replace(Path.GetFileName(path),newName);
 			File.Move(oldPath,path);
 		}
 
