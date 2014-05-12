@@ -25,10 +25,10 @@ public class Wallpapers : MonoBehaviour {
 		}
 		catch (FileNotFoundException fnfe)
 		{
-			Debug.Log("wallpaper.xml not found. generating...");
+			//Debug.Log("wallpaper.xml not found. generating...");
 
 			genConfig();
-			Debug.Log("wallpaper.xml generated. Now starting to paint...");
+			//Debug.Log("wallpaper.xml generated. Now starting to paint...");
 			setwallpapers();
 
 		}
@@ -60,7 +60,7 @@ public class Wallpapers : MonoBehaviour {
 			    
 				case "path":
 					path = n2.InnerText;
-					Debug.Log("Got wallpaper path: " + path);
+					//Debug.Log("Got wallpaper path: " + path);
 					break;
 				}
 				
@@ -82,7 +82,7 @@ public class Wallpapers : MonoBehaviour {
 		
 		
 		
-		Debug.Log("Textures defined");
+		//Debug.Log("Textures defined");
 		
 		//GameObject.Find("NorthWall").renderer.material.mainTexture = TXnorth;
 		GameObject.Find("NorthWall").renderer.material.mainTexture = TXnorth;
@@ -90,7 +90,7 @@ public class Wallpapers : MonoBehaviour {
 		GameObject.Find("SouthWall").renderer.material.mainTexture = TXsouth;
 		GameObject.Find("WestWall").renderer.material.mainTexture = TXwest;
 		
-		Debug.Log("Wallpapers are now colored");
+		//Debug.Log("Wallpapers are now colored");
 	}
 
 	void genConfig()

@@ -21,10 +21,11 @@ public class Crosshair : MonoBehaviour {
 	// Use this for initialization
 	
 	void Start () {
-		ChangeColor(255,255,255,255);
-
+		//ChangeColor(255,255,255,255);
+		Debug.Log("a 0");
 		try
 		{
+			Debug.Log("a 1");
 			setcrosshair();
 		}
 		catch (FileNotFoundException fnfe)
@@ -68,10 +69,13 @@ public class Crosshair : MonoBehaviour {
 					crosshair_shown.SetPixel (i,j,crosshair.GetPixel(i,j));
 				}
 			}
-
 		}
+		Debug.Log("Tha Crozairz haz ben aplid?");
 		crosshair_shown.Apply ();
+		//cc.pausegui.Preview = crosshair_shown;
+		//Somethings wrong with this line.... when its not commentet, it does make the crosshari blank. when its commentet, the crosshair is drawn right as it is in the config
 
+		Debug.Log("Yez, the Crozhaiz haz ben aplid");
 
 
 		Debug.Log ("Width = " + cc.pausegui.Preview.width);
@@ -100,29 +104,6 @@ public class Crosshair : MonoBehaviour {
 
 	void OnGUI()
 	{
-		/*
-		for(int i=0; i <= crosshair.width; i ++)
-		{
-
-			for (int j=0; j <= crosshair.height; j++)
-			{
-				Color pixel = crosshair.GetPixel (i,j);
-				//Debug.Log(pixel.ToString()+"->"+pixcol.ToString());
-				
-				if(!pixel.Equals(pixcol))
-				{
-					crosshair.SetPixel (i,j,newcol);
-					//pixel = crosshair.GetPixel (i,j);
-					//Debug.Log (pixel);
-					Debug.Log ("hallo");
-					
-				}
-				
-			}
-
-		}
-		crosshair.Apply ();
-		*/
 		float xMin = (Screen.width)/2 - (crosshair_shown.width /2);
 		float yMin = (Screen.height)/2 - (crosshair_shown.height /2);
 		
@@ -135,6 +116,7 @@ public class Crosshair : MonoBehaviour {
 		XmlDocument xml = new XmlDocument();
 		try{
 			xml.Load(configPath+shortcutConfig);
+			Debug.Log("a 2");
 		}
 		catch(Exception e)
 		{
@@ -144,18 +126,21 @@ public class Crosshair : MonoBehaviour {
 		string path = "";
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
+			Debug.Log("a 2.1 looking for path");
 			if(n1.Name =="path")
 				{
 					path = n1.InnerText;
 					Debug.Log("Got crosshair path: " + path);
 					break;
 				}
-			data = path;
 		}
+		data = path;
+		Debug.Log("a 3 HERE IS DA DATA:" + data);
 		xml.Save(configPath+shortcutConfig);		
 		
 		try
 		{
+			Debug.Log("a 4");
 			crosshair = GetTextureFromImage(data);
 		}
 		catch(ArgumentOutOfRangeException e)
@@ -185,6 +170,7 @@ public class Crosshair : MonoBehaviour {
 
 		//set xlength and ylength to the lenght of the picture on the path "path"
 		Texture2D texture = new Texture2D(/*xlength, ylenght*/200, 100);
+		Debug.Log("########### Tha pathz haz ben fudn. Itz rigth thee: " + path);
 		texture.LoadImage(File.ReadAllBytes(path));
 		return texture;
 	}
