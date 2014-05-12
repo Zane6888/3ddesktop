@@ -180,10 +180,11 @@ public class Crosshair : MonoBehaviour {
 
 	static Texture2D GetTextureFromImage(string path)
 	{
-		int xlenght;
-		int ylenght;
+		//int xlenght;
+		//int ylenght;
+
 		//set xlength and ylength to the lenght of the picture on the path "path"
-		Texture2D texture = new Texture2D(xlength, ylenght);
+		Texture2D texture = new Texture2D(/*xlength, ylenght*/200, 100);
 		texture.LoadImage(File.ReadAllBytes(path));
 		return texture;
 	}
