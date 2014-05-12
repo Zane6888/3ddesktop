@@ -56,12 +56,12 @@ public class ShortcutData
 
 	public void rename(string newName, bool keepOSFilename)
 	{
-		setName(newName);
+		name = newName;
 		string oldPath = path;
 
 		if(!keepOSFilename)
 		{
-			path = oldPath.Replace(Path.GetFileName(),newName);
+			//path = oldPath.Replace(Path.GetFileName(path),newName);
 			File.Move(oldPath,path);
 		}
 
