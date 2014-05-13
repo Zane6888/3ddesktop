@@ -232,7 +232,7 @@ public class PauseGui : MonoBehaviour {
 			intalpha = 0;
 		}
 
-		cc.cross.ChangeColor(intred,intgreen,intblue,intalpha);
+		cc.cross.SetColor(intred,intgreen,intblue,intalpha);
 		
 		
 		}

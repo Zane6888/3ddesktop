@@ -39,7 +39,8 @@ public class Crosshair : MonoBehaviour {
 
 	public void SetColor (int r, int g, int b, int a)
 	{
-		XmlDocument xml = XmlDocument.Load(configPath+shortcutConfig);
+		XmlDocument xml = new XmlDocument();
+		xml.Load(configPath+shortcutConfig);
 		
 		foreach (XmlElement element in xml.ChildNodes)
 		{
@@ -47,15 +48,16 @@ public class Crosshair : MonoBehaviour {
 			{
 			case "color_part_red":
 				element.InnerText = Convert.ToString(r);
-
+				break;
 			case "color_part_green":
 				element.InnerText = Convert.ToString(g);
-
+				break;
 			case "color_part_blue":
 				element.InnerText = Convert.ToString(b);
-
+				break;
 			case "color_part_alpha":
 				element.InnerText = Convert.ToString(a);
+				break;
 			}
 		}
 		xml.Save(configPath+shortcutConfig);
@@ -70,28 +72,30 @@ public class Crosshair : MonoBehaviour {
 		int b = 255;
 		int a = 255;
 
+		XmlDocument xml = new XmlDocument();
+		xml.Load(configPath+shortcutConfig);
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
 			switch (n1.Name)
 			{
 			case "color_part_red":
 				r = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + path);
+				Debug.Log("Got crosshair path: " + r);
 				break;
 				
 			case "color_part_green":
 				g = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + path);
+				Debug.Log("Got crosshair path: " + g);
 				break;
 				
 			case "color_part_blue":
 				b = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + path);
+				Debug.Log("Got crosshair path: " + b);
 				break;
 				
 			case "color_part_alpha":
 				a = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + path);
+				Debug.Log("Got crosshair path: " + a);
 				break;
 			}
 		}
@@ -177,7 +181,8 @@ public class Crosshair : MonoBehaviour {
 		string path = "";
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
-			if (n1.name == "path")
+
+			if (n1.Name == "path")
 			{
 				path = n1.InnerText;
 				Debug.Log("Got crosshair path: " + path);
