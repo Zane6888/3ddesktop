@@ -36,8 +36,68 @@ public class Crosshair : MonoBehaviour {
 
 	}
 
+
+	public void SetColor (int r, int g, int b, int a)
+	{
+		XmlDocument xml = XmlDocument.Load(configPath+shortcutConfig);
+		
+		foreach (XmlElement element in xml.ChildNodes)
+		{
+			switch (element.Name)
+			{
+			case "color_part_red":
+				element.InnerText = Convert.ToString(r);
+
+			case "color_part_green":
+				element.InnerText = Convert.ToString(g);
+
+			case "color_part_blue":
+				element.InnerText = Convert.ToString(b);
+
+			case "color_part_alpha":
+				element.InnerText = Convert.ToString(a);
+			}
+		}
+		xml.Save(configPath+shortcutConfig);
+
+		ChangeColor();
+	}
+
 	
-	public void ChangeColor (int r, int g, int b, int a) {
+	public void ChangeColor (/*int r, int g, int b, int a*/){
+		int r = 255;
+		int g = 255;
+		int b = 255;
+		int a = 255;
+
+		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
+		{
+			switch (n1.Name)
+			{
+			case "color_part_red":
+				r = Convert.ToInt16(n1.InnerText);
+				Debug.Log("Got crosshair path: " + path);
+				break;
+				
+			case "color_part_green":
+				g = Convert.ToInt16(n1.InnerText);
+				Debug.Log("Got crosshair path: " + path);
+				break;
+				
+			case "color_part_blue":
+				b = Convert.ToInt16(n1.InnerText);
+				Debug.Log("Got crosshair path: " + path);
+				break;
+				
+			case "color_part_alpha":
+				a = Convert.ToInt16(n1.InnerText);
+				Debug.Log("Got crosshair path: " + path);
+				break;
+			}
+		}
+		xml.Save(configPath+shortcutConfig);	
+
+
 		crosshair_shown = new Texture2D(crosshair.width, crosshair.height);
 		colwhite = new Color(1,1,1,1);
 		colblack = new Color(0,0,0,1);
@@ -113,29 +173,28 @@ public class Crosshair : MonoBehaviour {
 		{
 			throw new FileNotFoundException();
 		}
-		string data = "";
+		//string data = "";
 		string path = "";
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
-			if(n1.Name =="path")
-				{
-					path = n1.InnerText;
-					Debug.Log("Got crosshair path: " + path);
-					break;
-				}
+			if (n1.name == "path")
+			{
+				path = n1.InnerText;
+				Debug.Log("Got crosshair path: " + path);
+				break;
+			}
 		}
-		data = path;
 		xml.Save(configPath+shortcutConfig);		
 		
 		try
 		{
-			crosshair = GetTextureFromImage(data);
+			crosshair = GetTextureFromImage(path);
 		}
 		catch(ArgumentOutOfRangeException e)
 		{
 			throw new FileNotFoundException();
 		}
-		ChangeColor(255,255,255,255);
+		ChangeColor();
 	}
 
 	public void genConfig()
@@ -143,18 +202,29 @@ public class Crosshair : MonoBehaviour {
 		XmlDocument xml = new XmlDocument();
 		XmlNode x = xml.CreateElement("crosshair");
 		xml.AppendChild(x);
-		
-		//x.AppendChild(xml.CreateElement("wallpaper"));
+
 		x.AppendChild(xml.CreateElement("path"));
 		x.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\crosshair.png";
-		
+
+		x.AppendChild(xml.CreateElement("color_part_red"));
+		x.LastChild.InnerText = "255";
+
+		x.AppendChild(xml.CreateElement("color_part_green"));
+		x.LastChild.InnerText = "255";
+
+		x.AppendChild(xml.CreateElement("color_part_blue"));
+		x.LastChild.InnerText = "255";
+
+		x.AppendChild(xml.CreateElement("color_part_alpha"));
+		x.LastChild.InnerText = "255";
+
 		xml.Save(configPath+shortcutConfig);
 	}
 
 	static Texture2D GetTextureFromImage(string path)
 	{
 		
-		Texture2D texture = new Texture2D(/*xlength, ylenght*/200, 100);
+		Texture2D texture = new Texture2D(/*xlength, ylenght*/1920, 1080); //TODO: test if this works. old numbers: 200, 100
 		texture.LoadImage(File.ReadAllBytes(path));
 		return texture;
 	}
