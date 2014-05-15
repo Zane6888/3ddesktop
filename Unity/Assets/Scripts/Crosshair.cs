@@ -28,41 +28,50 @@ public class Crosshair : MonoBehaviour {
 		catch (FileNotFoundException fnfe)
 		{
 			Debug.Log("crosshair.xml not found. generating...");
-			
 			genConfig();
-			Debug.Log("crosshair.xml generated. Now starting to paint...");
+			//Debug.Log("crosshair.xml generated. Now starting to paint...");
 			setcrosshair();
 		}
 
 	}
 
 
-	public void SetColor (int r, int g, int b, int a)
+	public void SetColor (string crosshairpath, int r, int g, int b, int a)
 	{
 		XmlDocument xml = new XmlDocument();
 		xml.Load(configPath+shortcutConfig);
 		
-		foreach (XmlElement element in xml.ChildNodes)
+		//foreach (XmlElement element in xml.ChildNodes)
+		foreach (XmlNode element in xml.FirstChild.ChildNodes)
 		{
 			switch (element.Name)
 			{
+			case "path":
+				element.InnerText = crosshairpath;
+				//Debug.Log("Overwriting crossharipath: " + crosshairpath;
+				break;
+
 			case "color_part_red":
 				element.InnerText = Convert.ToString(r);
+				//Debug.Log("Overwriting color_part_red: " + Convert.ToString(r));
 				break;
 			case "color_part_green":
 				element.InnerText = Convert.ToString(g);
+				//Debug.Log("Overwriting color_part_green: " + Convert.ToString(g));
 				break;
 			case "color_part_blue":
 				element.InnerText = Convert.ToString(b);
+				//Debug.Log("Overwriting color_part_blue: " + Convert.ToString(b));
 				break;
 			case "color_part_alpha":
 				element.InnerText = Convert.ToString(a);
+				//Debug.Log("Overwriting color_part_alpha: " + Convert.ToString(a));
 				break;
 			}
 		}
 		xml.Save(configPath+shortcutConfig);
-
-		ChangeColor();
+		setcrosshair();
+		//ChangeColor();
 	}
 
 	
@@ -80,22 +89,22 @@ public class Crosshair : MonoBehaviour {
 			{
 			case "color_part_red":
 				r = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + r);
+				//Debug.Log("Got crosshair color red: " + r);
 				break;
 				
 			case "color_part_green":
 				g = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + g);
+				//Debug.Log("Got crosshair color green: " + g);
 				break;
 				
 			case "color_part_blue":
 				b = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + b);
+				//Debug.Log("Got crosshair color blue: " + b);
 				break;
 				
 			case "color_part_alpha":
 				a = Convert.ToInt16(n1.InnerText);
-				Debug.Log("Got crosshair path: " + a);
+				//Debug.Log("Got crosshair color alpha: " + a);
 				break;
 			}
 		}
@@ -181,11 +190,10 @@ public class Crosshair : MonoBehaviour {
 		string path = "";
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
-
 			if (n1.Name == "path")
 			{
 				path = n1.InnerText;
-				Debug.Log("Got crosshair path: " + path);
+				//Debug.Log("Got crosshair path: " + path);
 				break;
 			}
 		}
@@ -228,8 +236,7 @@ public class Crosshair : MonoBehaviour {
 
 	static Texture2D GetTextureFromImage(string path)
 	{
-		
-		Texture2D texture = new Texture2D(/*xlength, ylenght*/1920, 1080); //TODO: test if this works. old numbers: 200, 100
+		Texture2D texture = new Texture2D(1920, 1080);
 		texture.LoadImage(File.ReadAllBytes(path));
 		return texture;
 	}

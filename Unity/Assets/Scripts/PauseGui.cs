@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Xml;
 
 
 public class PauseGui : MonoBehaviour {
@@ -12,18 +13,52 @@ public class PauseGui : MonoBehaviour {
 	public bool showShutdownGUI = false;
 	public bool showControlsGUI = false;
 
-	public string Red = "R";
-	public string Green = "G";
-	public string Blue = "B";
-	public string Alpha = "A";
-	public string Crosshairpath = "z.B.: C://";
+	public string Red = "";
+	public string Green = "";
+	public string Blue = "";
+	public string Alpha = "";
+	public string Crosshairpath = "";
 
 	public Texture2D Preview;
 
+	public static string configPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\config\";
+	public static string shortcutConfig = "crosshair.xml";
 
 
 	void Start () {
+		XmlDocument xml = new XmlDocument();
+		xml.Load(configPath+shortcutConfig);
+		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
+		{
+			switch (n1.Name)
+			{
+			case "path":
+				Crosshairpath = n1.InnerText;
+				//Debug.Log("Got crosshair path: " + Crosshairpath);
+				break;
 
+			case "color_part_red":
+				Red = n1.InnerText;
+				//Debug.Log("Got crosshair color red: " + Red);
+				break;
+				
+			case "color_part_green":
+				Green = n1.InnerText;
+				//Debug.Log("Got crosshair color green: " + Green);
+				break;
+				
+			case "color_part_blue":
+				Blue = n1.InnerText;
+				//Debug.Log("Got crosshair color blue: " + Blue);
+				break;
+				
+			case "color_part_alpha":
+				Alpha = n1.InnerText;
+				//Debug.Log("Got crosshair color alpha: " + Alpha);
+				break;
+			}
+		}
+		xml.Save(configPath+shortcutConfig);	
 
 
 	}
@@ -93,8 +128,8 @@ public class PauseGui : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width/2+345,Screen.height/2+5, 35, 20), "Alpha:");
 		
 
-		Debug.Log ("Width = " + Preview.width);
-		Debug.Log ("Height = " + Preview.height);
+		//Debug.Log ("Width = " + Preview.width);
+		//Debug.Log ("Height = " + Preview.height);
 
 		GUI.DrawTexture (new Rect(Screen.width/2 + 430, Screen.height/2 +50, cc.cross.crosshair_shown.width, cc.cross.crosshair_shown.height), cc.cross.crosshair_shown);//Preview.width, Preview.height),Preview);
 
@@ -186,7 +221,9 @@ public class PauseGui : MonoBehaviour {
 
 	void OpenCursorPath()
 	{
+		ApplyCursor();
 	}
+
 	void ApplyCursor()
 	{
 		try
@@ -195,6 +232,7 @@ public class PauseGui : MonoBehaviour {
 		int intgreen = Convert.ToInt16(Green);
 		int intblue = Convert.ToInt16(Blue);
 		int intalpha = Convert.ToInt16(Alpha);
+		string path = Crosshairpath;
 
 		if (intred > 255)
 		{
@@ -232,13 +270,13 @@ public class PauseGui : MonoBehaviour {
 			intalpha = 0;
 		}
 
-		cc.cross.SetColor(intred,intgreen,intblue,intalpha);
+		cc.cross.SetColor(path, intred,intgreen,intblue,intalpha);
 		
 		
 		}
 		catch (Exception e)
 		{
-			Debug.Log ("Can't use this color for the Crosshair. Did you set a string instead of a number in the options?");
+			Debug.Log ("Failed to draw crosshair. String instead of number? Path valid?");
 		}
 	}
 
