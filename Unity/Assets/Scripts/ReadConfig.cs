@@ -19,7 +19,7 @@ public static class ReadConfig
 		try{
 		xml.Load(configPath+shortcutConfig);
 		}
-		catch(Exception e)
+		catch(Exception)
 		{
 		createConfig();
 			return getShortcutData();
@@ -48,7 +48,7 @@ public static class ReadConfig
 					{
 						d.iconId = System.Convert.ToInt32(n2.InnerText);
 					}
-					catch(Exception ex)
+					catch(Exception)
 					{
 						d.loadIcon(n2.InnerText);
 						n2.InnerText = d.iconId.ToString ();

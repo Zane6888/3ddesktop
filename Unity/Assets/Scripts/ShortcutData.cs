@@ -49,7 +49,7 @@ public class ShortcutData
 			return;
 		if(name == "")
 			name = "Missingna.";
-		Debug.Log("name set to: "+name);
+		//Debug.Log("name set to: "+name);
 		TextMesh txt = (TextMesh)nameObject.transform.FindChild("text").GetComponent(typeof (TextMesh));
 		txt.text = name;
 	}
