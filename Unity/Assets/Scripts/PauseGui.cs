@@ -5,6 +5,8 @@ using System.Xml;
 using System.Diagnostics;
 
 
+
+
 public class PauseGui : MonoBehaviour {
 	
 	public ControlControl cc;
@@ -170,7 +172,6 @@ public class PauseGui : MonoBehaviour {
 		showCursorChGUI = false;
 		showOptionsGUI = false;
 		showControlsGUI =false;
-		showMainMenuGUI=false;
 		showShutdownGUI=false;
 		showShutdownMenuGUI=false;
 		cc.toNormal();
@@ -312,6 +313,7 @@ public class PauseGui : MonoBehaviour {
 
 	void OpenCursorPath()
 	{
+		Crosshairpath = FileDialog.openFile ();
 		ApplyCursor();
 	}
 
