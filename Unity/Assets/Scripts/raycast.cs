@@ -22,6 +22,7 @@ public class raycast : MonoBehaviour {
 		
 		if(Input.GetMouseButtonUp(0))
 		{
+			Debug.Log ("left hit");
 			RaycastHit hit;
 			Vector3 rayDirection = Cam.transform.forward;
 			Ray selectionRay = new Ray(Cam.transform.position, rayDirection);
@@ -36,14 +37,17 @@ public class raycast : MonoBehaviour {
 				}
 				if(hit.collider.tag == "menu_rename" && carriedObject == null)
 				{
-					cc.renameGui.enabled = true;
+					cc.renameGui.show(currentMenuObject.GetComponentInChildren<ShortcutScript>().data);
+					IconGui.i.close();
 					cc.pause();
+
 				}
 			}
 		}
 		
 		if(Input.GetMouseButtonUp(1))
 		{
+			Debug.Log ("right hit");
 			RaycastHit hit;
 			Vector3 rayDirection = Cam.transform.forward;
 			Ray selectionRay = new Ray(Cam.transform.position, rayDirection);

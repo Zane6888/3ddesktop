@@ -29,11 +29,8 @@ public class IconGui : MonoBehaviour {
 		GameObject menu = right;
 		GameObject cam = player.transform.FindChild("Main Camera").gameObject;
 
-		while(currentMenu.Count != 0)
-		{
-			Destroy(currentMenu[0]);
-			currentMenu.RemoveAt(0);
-		}
+		close ();
+
 		Quaternion rot = shortCut.transform.rotation;
 		if(rot ==  Quaternion.AngleAxis(0,Vector3.up))
 		   	{
@@ -78,6 +75,15 @@ public class IconGui : MonoBehaviour {
 		container.transform.position = new Vector3(sLoc.x +0.1f,sLoc.y,sLoc.z+0.1f) + add;
 		container.transform.rotation = finalRot;
 
+	}
+
+	public void close()
+	{
+		while(currentMenu.Count != 0)
+		{
+			Destroy(currentMenu[0]);
+			currentMenu.RemoveAt(0);
+		}
 	}
 
 }
