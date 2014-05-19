@@ -30,7 +30,7 @@ public class ControlControl : MonoBehaviour {
 	
 	public void toNormal()
 	{
-
+		Debug.Log("tonormal");
 		Screen.lockCursor = true;
 		renameGui.enabled = false;
 		pausegui.enabled = false;	

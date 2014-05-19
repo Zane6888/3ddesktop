@@ -70,10 +70,45 @@ public class Wallpapers : MonoBehaviour {
 		xml.Save(configPath+shortcutConfig);		
 		
 		try{
-			TXnorth = GetTextureFromImage(data[0]);
-			TXeast = GetTextureFromImage(data[1]);
-			TXsouth = GetTextureFromImage(data[2]);
-			TXwest = GetTextureFromImage(data[3]);
+			//Northwall
+			if (data[0] == "")
+			{
+				TXnorth = (Texture2D)Resources.Load("Textures/wallpapers/northwall");
+			}
+			else
+			{
+				TXnorth = GetTextureFromImage(data[0]);
+			}
+
+			//Eastwall
+			if (data[1] == "")
+			{
+				TXeast = (Texture2D)Resources.Load("Textures/wallpapers/eastwall");
+			}
+			else
+			{
+				TXeast = GetTextureFromImage(data[1]);
+			}
+
+			//Southwall
+			if (data[2] == "")
+			{
+				TXsouth = (Texture2D)Resources.Load("Textures/wallpapers/southwall");
+			}
+			else
+			{
+				TXsouth = GetTextureFromImage(data[2]);
+			}
+
+			//Westwall
+			if (data[3] == "")
+			{
+				TXwest = (Texture2D)Resources.Load("Textures/wallpapers/westwall");
+			}
+			else
+			{
+				TXwest = GetTextureFromImage(data[3]);
+			}
 		}
 		catch(ArgumentOutOfRangeException e)
 		{
@@ -101,19 +136,19 @@ public class Wallpapers : MonoBehaviour {
 
 		x.AppendChild(xml.CreateElement("wallpaper"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
-		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\northwall.jpg";
+		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\northwall.jpg";
 
 		x.AppendChild(xml.CreateElement("wallpaper"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
-		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\eastwall.jpg";
+		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\eastwall.jpg";
 
 		x.AppendChild(xml.CreateElement("wallpaper"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
-		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\southwall.jpg";
+		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\southwall.jpg";
 
 		x.AppendChild(xml.CreateElement("wallpaper"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
-		x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\westwall.jpg";
+		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\westwall.jpg";
 
 
 		xml.Save(configPath+shortcutConfig);

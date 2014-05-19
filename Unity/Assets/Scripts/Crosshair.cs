@@ -217,7 +217,7 @@ public class Crosshair : MonoBehaviour {
 		xml.AppendChild(x);
 
 		x.AppendChild(xml.CreateElement("path"));
-		x.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\crosshair.png";
+		//x.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\crosshair.png";
 
 		x.AppendChild(xml.CreateElement("color_part_red"));
 		x.LastChild.InnerText = "255";
@@ -237,7 +237,15 @@ public class Crosshair : MonoBehaviour {
 	static Texture2D GetTextureFromImage(string path)
 	{
 		Texture2D texture = new Texture2D(1920, 1080);
-		texture.LoadImage(File.ReadAllBytes(path));
+		if (path == "")
+		{
+			//Debug.Log("No path found in config. Using standard image.");
+			texture = (Texture2D)Resources.Load("Textures/crosshair");
+		}
+		else
+		{
+			texture.LoadImage(File.ReadAllBytes(path));
+		}
 		return texture;
 	}
 }
