@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Xml;
+using System.Diagnostics;
 
 
 public class PauseGui : MonoBehaviour {
@@ -11,7 +12,12 @@ public class PauseGui : MonoBehaviour {
 	public bool showCursorChGUI = false;
 	public bool showOptionsGUI = false;
 	public bool showShutdownGUI = false;
+	public bool showShutdownMenuGUI = false;
 	public bool showControlsGUI = false;
+	public bool showMainMenuGUI = true;
+
+	public int ShutdownSource;
+	public string ShutdownButtonText;
 
 	public string Red = "";
 	public string Green = "";
@@ -23,6 +29,7 @@ public class PauseGui : MonoBehaviour {
 
 	public static string configPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\config\";
 	public static string shortcutConfig = "crosshair.xml";
+
 
 
 	void Start () {
@@ -61,6 +68,7 @@ public class PauseGui : MonoBehaviour {
 		xml.Save(configPath+shortcutConfig);	
 
 
+
 	}
 	
 	// Update is called once per frame
@@ -69,6 +77,8 @@ public class PauseGui : MonoBehaviour {
 	
 	void OnGUI()
 	{
+		if(showMainMenuGUI)
+		{
 		GUI.Box(new Rect(Screen.width/2 - 100,Screen.height/2 - 105,200,265),"");	
 		if(GUI.Button(new Rect(Screen.width/2 - 55,Screen.height/2 -80,110,50),"Continue"))
 			Close();
@@ -78,12 +88,29 @@ public class PauseGui : MonoBehaviour {
 			Options();
 		if(GUI.Button(new Rect(Screen.width/2 -55, Screen.height/2+85,110,50),"End"))
 			End ();
+		}
 
 		if(showShutdownGUI)
 		{
-			GUI.Box (new Rect(Screen.width/2 +110,Screen.height/2 -50,200,210),"");
+			GUI.Box (new Rect(Screen.width/2 +110,Screen.height/2 -105,200,265),"");
+			if(GUI.Button (new Rect (Screen.width/2 +160,Screen.height/2-80,100,50),"Logout"))
+				Logout();
+			if(GUI.Button (new Rect (Screen.width/2 +160,Screen.height/2-25,100,50),"Restart"))
+				Restart();
+			if(GUI.Button (new Rect (Screen.width/2 +160,Screen.height/2+30,100,50),"Shutdown"))
+				Shutdown();
 			if(GUI.Button (new Rect (Screen.width/2 +160,Screen.height/2+85,100,50),"Back"))
 			   BackShutdown();
+		}
+		if(showShutdownMenuGUI)
+		{
+			GUI.Box (new Rect (Screen.width/2-100, Screen.height/2 -55,200,110),"");
+			if(GUI.Button (new Rect (Screen.width/2 -90,Screen.height/2,85,30),ShutdownButtonText))
+				ShutdownMenuClick();
+			if(GUI.Button (new Rect (Screen.width/2 +5, Screen.height/2,85,30),"Cancel"))
+				CancelShutdown();
+
+			GUI.Label (new Rect (Screen.width/2 -70, Screen.height/2-45,140,30),"What do you want to do?");
 		}
 
 		if(showOptionsGUI)
@@ -143,6 +170,9 @@ public class PauseGui : MonoBehaviour {
 		showCursorChGUI = false;
 		showOptionsGUI = false;
 		showControlsGUI =false;
+		showMainMenuGUI=false;
+		showShutdownGUI=false;
+		showShutdownMenuGUI=false;
 		cc.toNormal();
 	}
 
@@ -200,11 +230,72 @@ public class PauseGui : MonoBehaviour {
 		else
 			showCursorChGUI = false;
 	}
+	void Logout()
+	{
+		ShutdownSource = 0;
+		ShutdownButtonText = "Logout";
+		showShutdownGUI=false;
+		showOptionsGUI=false;
+		showCursorChGUI = false;
+		showControlsGUI =false;
+		showMainMenuGUI=false;
+		showShutdownMenuGUI = true;
+
+	}	
+	void Restart()
+	{
+		ShutdownSource=1;
+		ShutdownButtonText = "Restart";
+		showShutdownGUI=false;
+		showOptionsGUI=false;
+		showCursorChGUI = false;
+		showControlsGUI =false;
+		showMainMenuGUI=false;
+		showShutdownMenuGUI = true;
+
+
+	}	
+	void Shutdown()
+	{
+		ShutdownSource=2;
+		ShutdownButtonText = "Shutdown";
+		showShutdownGUI=false;
+		showOptionsGUI=false;
+		showCursorChGUI = false;
+		showControlsGUI =false;
+		showMainMenuGUI=false;
+		showShutdownMenuGUI = true;
+
+	}
+
+	void ShutdownMenuClick()
+	{
+		if(ShutdownSource==0)
+		{
+			Process.Start ("shutdown","/l");
+		}
+		if(ShutdownSource==1)
+		{
+			Process.Start ("shutdown","/r");
+		}
+		if(ShutdownSource==2)
+		{
+			Process.Start ("shutdown","/s");
+		}
+	}
+
+	void CancelShutdown()
+	{
+		showShutdownGUI=true;
+		showMainMenuGUI=true;
+		showShutdownMenuGUI = false;
+	}
 
 	void BackShutdown()
 	{
 		showShutdownGUI = false;
 	}
+
 
 	void BackOptions()
 	{
@@ -276,7 +367,7 @@ public class PauseGui : MonoBehaviour {
 		}
 		catch (Exception e)
 		{
-			Debug.Log ("Failed to draw crosshair. String instead of number? Path valid?");
+			UnityEngine.Debug.Log ("Failed to draw crosshair. String instead of number? Path valid?");
 		}
 	}
 
