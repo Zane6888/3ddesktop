@@ -29,6 +29,7 @@ public class raycast : MonoBehaviour {
 		
 			if(Physics.Raycast(selectionRay, out hit))
 			{
+				Debug.Log(hit.collider.tag);
 				if(hit.collider.tag == "shortcut" && carriedObject == null)
 				{
 					Debug.Log(hit.collider.gameObject.name);
@@ -41,6 +42,23 @@ public class raycast : MonoBehaviour {
 					IconGui.i.close();
 					cc.pause();
 
+				}
+				if(hit.collider.tag == "menu_move" && carriedObject == null)
+				{
+					IconGui.i.close();
+					carriedObject = currentMenuObject;
+					start.store.fillPlaceHolders("objectmove");
+					start.store.removeShortCut(carriedObject);
+				}
+				
+				if(hit.collider.tag == "objectmove" && carriedObject != null)
+				{ 
+					Vector3 targetLoc = start.store.findShortcut(hit.collider.gameObject);
+					start.store.removePlaceHolders("objectmove");
+					Debug.Log ("loc"+targetLoc);
+					if(targetLoc.x != -1)
+						start.store.addShortCut(carriedObject,(int)targetLoc.z,(int)targetLoc.x,(int)targetLoc.y);
+					carriedObject = null;
 				}
 			}
 		}
@@ -55,24 +73,12 @@ public class raycast : MonoBehaviour {
 			if(Physics.Raycast(selectionRay, out hit))
 			{
 				Debug.Log(hit.collider.gameObject.transform.position+":"+hit.collider.gameObject.transform.localScale);
-				if(hit.collider.tag == "shortcut" && carriedObject == null)
-				{
-					/*carriedObject = hit.collider.gameObject;
-					start.store.fillPlaceHolders("objectmove");
-					start.store.removeShortCut(carriedObject);*/
 
-					IconGui.i.showFor(player,hit.collider.gameObject);
+				if(hit.collider.tag == "shortcut")
+				{
 					currentMenuObject = hit.collider.gameObject;
-				}
-				
-				if(hit.collider.tag == "objectmove" && carriedObject != null)
-				{ 
-					Vector3 targetLoc = start.store.findShortcut(hit.collider.gameObject);
-					start.store.removePlaceHolders("objectmove");
-					Debug.Log ("loc"+targetLoc);
-					if(targetLoc.x != -1)
-						start.store.addShortCut(carriedObject,(int)targetLoc.z,(int)targetLoc.x,(int)targetLoc.y);
-					carriedObject = null;
+					
+					IconGui.i.showFor(player,currentMenuObject);
 				}
 			}
 		}
