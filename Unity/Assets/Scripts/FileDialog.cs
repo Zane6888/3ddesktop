@@ -5,29 +5,38 @@ using System;
 using Gtk;
 
 
-public static class FileDialog  {
+public class FileDialog : Gtk.Window {
 
-	public static string FileChooserTitle;
-	public static string Path;
-	//windows.Forms.OpenFileDialog funktioniert nicht, da Unity3d
-	//nicht damit kompatibel ist. 
+	public FileDialog():base("FileDialogTitle")
+	{
+
+	}
+
+	public string FileChooserTitle;
+	public string path;
 
 	// Use this for initializatio
-	public static string openFile()
+	public string openFile()
 	{
-		Debug.Log("Went in openFile method");
-		FileChooserDialog FileChooser = new FileChooserDialog(FileChooserTitle,null,FileChooserAction.Open);
-		Debug.Log("Created FileDialog");
-		FileChooser.AddButton (Stock.Cancel, ResponseType.Cancel);
-		FileChooser.AddButton (Stock.Open, ResponseType.Ok);
-		Debug.Log("Running FileDialog");
-		ResponseType RetVal = (ResponseType)FileChooser.Run ();
-		Debug.Log("Dialog shown");
-		//if(RetVal == ResponseType.Ok)
+
+		FileChooserDialog Fc = new FileChooserDialog("Choose new Crosshair",this,FileChooserAction.Open,"Cancel",ResponseType.Cancel,"Open",ResponseType.Accept);
+
+
+
+
+		//if(Fc.Run() == (int)ResponseType.Accept)        //Unity stirbt hier
 		//{
-		//	return FileChooser.Filename ;
+		//	FileChooser chooser = new FileChooser(Fc);
+		//	path = chooser.Filename;
+		//
+		    path = Fc.Filename;
+			Fc.Destroy ();
+			//return path;                //Inhalt von CrosshairGUI ist leer
 		//}
+
+		Fc.Destroy ();
 		return "";
+
 	}
 
 }

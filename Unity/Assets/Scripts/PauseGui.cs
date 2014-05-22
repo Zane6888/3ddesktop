@@ -29,6 +29,8 @@ public class PauseGui : MonoBehaviour {
 
 	public Texture2D Preview;
 
+	public FileDialog Open;
+
 
 	public static string configPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\config\";
 	public static string shortcutConfig = "crosshair.xml";
@@ -314,9 +316,10 @@ public class PauseGui : MonoBehaviour {
 
 	void OpenCursorPath()
 	{
-		UnityEngine.Debug.Log("calling openFile");
-		Crosshairpath = FileDialog.openFile ();
-		UnityEngine.Debug.Log("Calling ApplyCursor");
+		Open = new FileDialog();
+		Open.FileChooserTitle = "Choose the new Crosshair";
+		Crosshairpath = Open.openFile ();
+
 		ApplyCursor();
 	}
 
