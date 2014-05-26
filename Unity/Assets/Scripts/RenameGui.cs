@@ -12,7 +12,6 @@ public class RenameGui : MonoBehaviour {
 	private static int space = 20;
 	private static int tSpace = (int)(space * 1.5);
 	private static int tbWidth = guiWidth - 3*space - textWidth;
-	private static int y = Screen.height/2 + tSpace - guiHeight/2;
 	private static int bwidth = 50;
 
 	private string newName = "";
@@ -24,8 +23,9 @@ public class RenameGui : MonoBehaviour {
 
 	void OnGUI()
 	{
+		int y = (int)((Screen.height - guiHeight)/2) + tSpace;
 		int xText = (Screen.width - guiWidth)/2 + space;
-	
+		
 		GUI.Label(new Rect(xText,y,textWidth,tbHeight),"Name:");
 		newName = GUI.TextField(new Rect(xText+ textWidth + space,y,tbWidth,tbHeight),newName);
 		GUI.Box(new Rect((Screen.width-guiWidth)/2,(Screen.height-guiHeight)/2,guiWidth,guiHeight),"Rename");
