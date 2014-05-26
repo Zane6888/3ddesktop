@@ -33,6 +33,27 @@ public class ShortcutData
 
 	}
 
+	private int _wall;
+	public int wall{
+		get{
+			return _wall;
+		}
+	}
+
+	private int _x;
+	public int x{
+		get{
+			return _x;
+		}
+	}
+
+	private int _y;
+	public int y{
+		get{
+			return _y;
+		}
+	}
+
 	public static string basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\3ddesktop";
 	public static string iconPath = basePath+@"\icons";
 	
@@ -52,6 +73,11 @@ public class ShortcutData
 		//Debug.Log("name set to: "+name);
 		TextMesh txt = (TextMesh)nameObject.transform.FindChild("text").GetComponent(typeof (TextMesh));
 		txt.text = name;
+	}
+
+	public void setPosition(int wall, int x, int y)
+	{
+
 	}
 
 	public void rename(string newName, bool keepOSFilename)

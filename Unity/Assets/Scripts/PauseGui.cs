@@ -386,7 +386,7 @@ public class PauseGui : MonoBehaviour {
 
 	void End()
 	{
-		UnityEditor.EditorApplication.isPlaying = false;
+		//UnityEditor.EditorApplication.isPlaying = false;
 		Application.Quit();
 	}
 }

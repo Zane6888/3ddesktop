@@ -31,6 +31,9 @@ public static class ReadConfig
 		{
 			Debug.Log(n1.Name+"/"+n1.InnerXml);
 			d = new ShortcutData();
+			int x = -1;
+			int y = -1;
+			int wall = -1;
 			foreach(XmlNode n2 in n1.ChildNodes)
 			{
 				switch(n2.Name)
@@ -70,9 +73,20 @@ public static class ReadConfig
 					d.modelEnabled = true;
 					else d.extensionStandard = false;
 					break;
+				case "x":
+					x = Convert.ToInt32(n2.InnerText);
+					break;
+				case "y":
+					y = Convert.ToInt32(n2.InnerText);
+					break;
+				case "wall":
+					wall = Convert.ToInt32(n2.InnerText);
+					break;
 				}
 				
 			}
+			if(x != -1 && y != -1 && wall != -1)
+				d.setPosition(wall,x,y);
 			data.Add(d);
 		}
 		xml.Save(configPath+shortcutConfig);
@@ -84,13 +98,14 @@ public static class ReadConfig
 	{
 		currentConfig.RemoveAll(s => s.path == oldPath);
 		currentConfig.Add(newData);
-
+		writeCurrentConfig();
 	}
 
 	private static void writeCurrentConfig()
 	{
 		XmlDocument xml = new XmlDocument();
 		XmlNode baseNode = xml.CreateElement("shortcuts");
+		xml.AppendChild(baseNode);
 		foreach(ShortcutData s in currentConfig)
 		{
 			XmlNode shortcut = xml.CreateElement("shortcut");
@@ -120,6 +135,18 @@ public static class ReadConfig
 
 			x = xml.CreateElement("extension_standard");
 			x.InnerText = s.extensionStandard ? "true" : "flase";
+			shortcut.AppendChild(x);
+
+			x = xml.CreateElement("x");
+			x.InnerText = s.x.ToString();
+			shortcut.AppendChild(x);
+
+			x = xml.CreateElement("y");
+			x.InnerText = s.y.ToString();
+			shortcut.AppendChild(x);
+
+			x = xml.CreateElement("wall");
+			x.InnerText = s.wall.ToString();
 			shortcut.AppendChild(x);
 		}
 
