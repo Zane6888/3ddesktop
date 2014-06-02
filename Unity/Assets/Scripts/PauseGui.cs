@@ -12,6 +12,7 @@ public class PauseGui : MonoBehaviour {
 	public ControlControl cc;
 	// Use this for initialization
 	public bool showCursorChGUI = false;
+	public bool showWallpapersChGUI = false;
 	public bool showOptionsGUI = false;
 	public bool showShutdownGUI = false;
 	public bool showShutdownMenuGUI = false;
@@ -26,6 +27,10 @@ public class PauseGui : MonoBehaviour {
 	public string Blue = "";
 	public string Alpha = "";
 	public string Crosshairpath = "";
+	public string Northwall = "";
+	public string Eastwall = "";
+	public string Southwall = "";
+	public string Westwall = "";
 
 	public Texture2D Preview;
 
@@ -120,12 +125,14 @@ public class PauseGui : MonoBehaviour {
 
 		if(showOptionsGUI)
 		{
-		GUI.Box (new Rect(Screen.width/2 + 110, Screen.height/2 -50,200,210),"");
-		if(GUI.Button (new Rect(Screen.width/2+160, Screen.height/2 -25,100,50),"Controls"))
+		GUI.Box (new Rect(Screen.width/2 + 110, Screen.height/2 -105,200,265),"");
+		if(GUI.Button (new Rect(Screen.width/2+150, Screen.height/2 -80,120,50),"Controls"))
 			Controls();
-		if(GUI.Button (new Rect (Screen.width/2 +160, Screen.height/2 + 30, 100,50),"Change Cursor"))
+		if(GUI.Button (new Rect (Screen.width/2 +150, Screen.height/2 -25, 120,50),"Change Cursor"))
 			ChCursor ();
-		if(GUI.Button (new Rect (Screen.width /2 + 160, Screen.height /2 +85, 100,50),"Back"))
+		if(GUI.Button (new Rect (Screen.width/2 +150, Screen.height/2 + 30, 120,50),"Change Wallpapers"))
+			ChWallpapers ();
+		if(GUI.Button (new Rect (Screen.width /2 + 150, Screen.height /2 +85, 120,50),"Back"))
 			BackOptions();
 		}
 
@@ -167,12 +174,41 @@ public class PauseGui : MonoBehaviour {
 
 		}
 
+		if(showWallpapersChGUI)
+		{
+			GUI.Box (new Rect(Screen.width/2+320,Screen.height/2 -105,200,265),"");
+			if(GUI.Button (new Rect (Screen.width/2 +340, Screen.height/2 +30,80,50),"Apply"))
+				ApplyWallpapers();
+			if(GUI.Button (new Rect(Screen.width/2 +340,Screen.height/2 +85,80,50),"Back"))
+				BackWallpapers();
+			if(GUI.Button (new Rect (Screen.width/2 + 470, Screen.height/2+-95,45,20),"Open"))
+				OpenWallpapersPath();
+
+			Northwall = GUI.TextField (new Rect(Screen.width/2+385, Screen.height/2 -70,130,20),Northwall,3);
+			Eastwall = GUI.TextField (new Rect(Screen.width/2+385, Screen.height/2-45,130,20),Eastwall,3);
+			Southwall = GUI.TextField (new Rect(Screen.width/2+385,Screen.height/2-20,130,20),Southwall,3);
+			Westwall = GUI.TextField (new Rect(Screen.width/2+385,Screen.height/2+5,130,20),Westwall,3);
+			
+			GUI.Label(new Rect(Screen.width/2+345,Screen.height/2-70, 35, 20), "North:");
+			GUI.Label(new Rect(Screen.width/2+345,Screen.height/2-45, 35, 20), "East:");
+			GUI.Label(new Rect(Screen.width/2+345,Screen.height/2-20, 35, 20), "South:");
+			GUI.Label(new Rect(Screen.width/2+345,Screen.height/2+5, 35, 20), "West:");
+			
+			
+			//Debug.Log ("Width = " + Preview.width);
+			//Debug.Log ("Height = " + Preview.height);
+			
+			//GUI.DrawTexture (new Rect(Screen.width/2 + 430, Screen.height/2 +50, cc.cross.crosshair_shown.width, cc.cross.crosshair_shown.height), cc.cross.crosshair_shown);//Preview.width, Preview.height),Preview);
+			
+		}
+
 	}
 	
 	void Close()
 	{
 		showShutdownGUI = false;
 		showCursorChGUI = false;
+		showWallpapersChGUI = false;
 		showOptionsGUI = false;
 		showControlsGUI =false;
 		showShutdownGUI=false;
@@ -186,6 +222,7 @@ public class PauseGui : MonoBehaviour {
 		{
 			showControlsGUI =false;
 			showCursorChGUI =false;
+			showWallpapersChGUI = false;
 			showOptionsGUI =false;
 			showShutdownGUI =true;
 		}
@@ -205,6 +242,7 @@ public class PauseGui : MonoBehaviour {
 		else
 		{
 			showCursorChGUI = false;
+			showWallpapersChGUI = false;
 			showControlsGUI = false;
 			showOptionsGUI = false;
 		}
@@ -216,6 +254,7 @@ public class PauseGui : MonoBehaviour {
 		if (showControlsGUI ==false)
 		{
 			showCursorChGUI =false;
+			showWallpapersChGUI = false;
 			showControlsGUI = true;
 		}
 		else
@@ -229,11 +268,25 @@ public class PauseGui : MonoBehaviour {
 		if (showCursorChGUI == false)
 		{
 			showControlsGUI = false;
+			showWallpapersChGUI = false;
 			showCursorChGUI = true;
 		}
 		else
 			showCursorChGUI = false;
 	}
+
+	void ChWallpapers()
+	{
+		if (showWallpapersChGUI == false)
+		{
+			showControlsGUI = false;
+			showCursorChGUI = false;
+			showWallpapersChGUI = true;
+		}
+		else
+			showWallpapersChGUI = false;
+	}
+
 	void Logout()
 	{
 		ShutdownSource = 0;
@@ -241,6 +294,7 @@ public class PauseGui : MonoBehaviour {
 		showShutdownGUI=false;
 		showOptionsGUI=false;
 		showCursorChGUI = false;
+		showWallpapersChGUI = false;
 		showControlsGUI =false;
 		showMainMenuGUI=false;
 		showShutdownMenuGUI = true;
@@ -253,6 +307,7 @@ public class PauseGui : MonoBehaviour {
 		showShutdownGUI=false;
 		showOptionsGUI=false;
 		showCursorChGUI = false;
+		showWallpapersChGUI = false;
 		showControlsGUI =false;
 		showMainMenuGUI=false;
 		showShutdownMenuGUI = true;
@@ -266,6 +321,7 @@ public class PauseGui : MonoBehaviour {
 		showShutdownGUI=false;
 		showOptionsGUI=false;
 		showCursorChGUI = false;
+		showWallpapersChGUI = false;
 		showControlsGUI =false;
 		showMainMenuGUI=false;
 		showShutdownMenuGUI = true;
@@ -305,6 +361,7 @@ public class PauseGui : MonoBehaviour {
 	{
 		showControlsGUI = false;
 		showCursorChGUI = false;
+		showWallpapersChGUI = false;
 		showOptionsGUI = false;
 	}
 
@@ -316,11 +373,13 @@ public class PauseGui : MonoBehaviour {
 
 	void OpenCursorPath()
 	{
+		/*
 		Open = new FileDialog();
 		Open.FileChooserTitle = "Choose the new Crosshair";
 		Crosshairpath = Open.openFile ();
 
 		ApplyCursor();
+		*/
 	}
 
 	void ApplyCursor()
@@ -382,6 +441,35 @@ public class PauseGui : MonoBehaviour {
 	void BackCursor()
 	{
 		showCursorChGUI = false;
+		showWallpapersChGUI = false;
+	}
+
+	void OpenWallpapersPath()
+	{
+		/*
+		Open = new FileDialog();
+		Open.FileChooserTitle = "Choose the new Crosshair";
+		Crosshairpath = Open.openFile ();
+
+		ApplyCursor();
+		*/
+	}
+
+	void ApplyWallpapers()
+	{
+		try
+		{
+
+		}
+		catch (Exception e)
+		{
+			UnityEngine.Debug.Log ("Failed to draw crosshair. String instead of number? Path valid?");
+		}
+	}
+
+	void BackWallpapers()
+	{
+		showWallpapersChGUI = false;
 	}
 
 	void End()
