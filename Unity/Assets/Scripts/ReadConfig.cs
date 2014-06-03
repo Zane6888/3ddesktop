@@ -2,12 +2,16 @@
 using System.Xml;
 using System;
 using System.Linq;
+using System.IO;
 using UnityEngine;
 
 public static class ReadConfig
 {
 	public static string configPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\config\";
+	public static string iconpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\";
 	public static string shortcutConfig = "shortcut.xml";
+
+	public static bool locked = false;
 
 	public static List<ShortcutData> currentConfig;
 
@@ -29,7 +33,7 @@ public static class ReadConfig
 		Debug.Log(xml.ToString());
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
-			Debug.Log(n1.Name+"/"+n1.InnerXml);
+			//Debug.Log(n1.Name+"/"+n1.InnerXml);
 			d = new ShortcutData();
 			int x = -1;
 			int y = -1;
@@ -86,12 +90,16 @@ public static class ReadConfig
 				
 			}
 			if(x != -1 && y != -1 && wall != -1)
-				d.setPosition(wall,x,y);
+				d.setPosition(wall,x,y,false);
 			data.Add(d);
 		}
 		xml.Save(configPath+shortcutConfig);
 		currentConfig = data;
 		return data;
+	}
+	public static void updateConfig(ShortcutData data)
+	{
+		updateConfig(data.path,data);
 	}
 
 	public static void updateConfig(string oldPath, ShortcutData newData)
@@ -103,6 +111,12 @@ public static class ReadConfig
 
 	private static void writeCurrentConfig()
 	{
+		if(locked)
+		{
+			Debug.Log("config locked, not writing");
+			return;
+		}
+		Debug.Log("writing config");
 		XmlDocument xml = new XmlDocument();
 		XmlNode baseNode = xml.CreateElement("shortcuts");
 		xml.AppendChild(baseNode);
@@ -130,11 +144,11 @@ public static class ReadConfig
 			*/
 
 			x = xml.CreateElement("model_enable");
-			x.InnerText = s.modelEnabled ? "true" : "flase";
+			x.InnerText = s.modelEnabled ? "true" : "false";
 			shortcut.AppendChild(x);
 
 			x = xml.CreateElement("extension_standard");
-			x.InnerText = s.extensionStandard ? "true" : "flase";
+			x.InnerText = s.extensionStandard ? "true" : "false";
 			shortcut.AppendChild(x);
 
 			x = xml.CreateElement("x");
@@ -152,6 +166,16 @@ public static class ReadConfig
 
 		xml.Save(configPath+shortcutConfig);
 	}
+
+	public static void setLocked(bool flag)
+	{
+		if(!flag && locked)
+		{
+			locked = false;
+			writeCurrentConfig();
+		}
+		locked = flag;
+	}
 	
 	public static void createConfig()
 	{
@@ -164,8 +188,23 @@ public static class ReadConfig
 	
 	public static int getNextIconId()
 	{
-		//TODO 
-		return -1;
+		List<string> content = new List<string>(Directory.GetFiles(iconpath));
+		int num = 0;
+
+		foreach(string s in content)
+		{
+			String name = new FileInfo(s).Name.Replace(new FileInfo(s).Extension,"");
+			try
+			{
+			int i = Convert.ToInt32(name);
+			if(i > num)
+				num = i;
+			}
+			catch(Exception){}
+		}
+		num++;
+
+		return num;
 	}
 
 }

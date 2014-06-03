@@ -15,104 +15,29 @@ public class start : MonoBehaviour {
 	public UnityEngine.Font font;
 	public string noicon = "416e09677f119c42bcced015bc3f3b2c";
 	public Material notex;
-	
-	
-	public int scalex = 16;
-	public int scaley = 9;
+
 	public int countx = 15;
 	public int county = 8;
 
 	public static SCStorage store;
 	
 	// Use this for initialization
-	void Start () {
-		store = new SCStorage(8,15,null);
-		float xadd = scalex/countx;
-		float yadd = scaley/county;
-		
+	void Start () 
+	{
+		SCStorage.scName = scName;
+		SCStorage.shortc = shortc;
+
+
+		store = new SCStorage(county,countx,null);
+		store.addAll(ReadConfig.getShortcutData());
+
 		string desktop = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
 		string publicdesktop = Environment.ExpandEnvironmentVariables(@"%PUBLIC%\Desktop");
-		//Debug.Log(desktop);
-		//Debug.Log(publicdesktop);
-		
-		int i = 0;
-		GameObject r;
-		Texture2D tex;
-		ByteArrayImg img;
-		List<ShortcutData> d = ReadConfig.getShortcutData();
 
-		//Byte[] b ;
-		List<string> files =  new List<string>(Directory.GetFiles(desktop));
-		files.AddRange(Directory.GetFiles(publicdesktop));
-		
-		foreach(string file in files)
-		{	
-			try{		
-				String s = file;
-				string ext = new FileInfo(file).Extension;
-				string name = new FileInfo(file).Name;
-				if(ext == ".lnk")
-				{		
-					s = FileHelper.GetShortcutTargetFile(file);
-					s = s == "" ? file : s;
-					ext = new FileInfo(s).Extension;
-				}
-					
-				img = FileHelper.GetFileIcon(s);
-				tex = new Texture2D(img.width,img.height);
-				string hash = img.GetHash();	
-				//Debug.Log("hash:"+hash);	
-				tex.LoadImage(img.bytes);
-				r = (GameObject)Instantiate(shortc,new Vector3((float)(i%countx + 1) * xadd ,
-						yadd * (float)(Math.Floor((double)i/countx)+1),0f),Quaternion.identity);
-				//Debug.Log("dcount:"+d.Count);
-				ShortcutData sd;
-				if(d.Find(da => {return da.path == s;}) != null)
-				{
-					sd = d.Find(da => {return da.path == s;});
-					r.GetComponent<ShortcutScript>().data = sd;
-					r.renderer.material = r.GetComponent<ShortcutScript>().data.getMaterial();
-				}
-				else {
-					sd = new ShortcutData();
-					r.GetComponent<ShortcutScript>().data = sd;
-					sd.path = s;
-					if(File.Exists(ShortcutData.iconPath+@"\"+ext.Substring(1)+".png"))
-					{
-						tex = new Texture2D(img.width,img.height);
-						tex.LoadImage(File.ReadAllBytes(ShortcutData.iconPath+@"\"+ext.Substring(1)+".png"));
-						r.renderer.material.mainTexture = tex;
-					}
-					else{
-						if(noicon == hash)
-							r.renderer.material = notex;
-						else
-							r.renderer.material.mainTexture = tex;						
-					}
-				}
-				sd.nameObject = (GameObject)Instantiate(scName,r.transform.position,r.transform.rotation);
-				sd.name = name;
-				//newText(s,2 * (i%20) - 45 ,2 * (int)Math.Floor(i/20m)+ 6,40);
-				store.addShortCut(r,0,i%15,(int)Math.Floor(i/15m));	
-			}
-			catch(Exception e)
-			{
-				Debug.LogException(e);
-			}
-			i++;
-		}
+		store.loadFromDir(0,desktop);
+		//store.loadFromDir(0,publicdesktop);
+
 		Screen.lockCursor = true;
-	/*	
-	Rigidbody b = (Rigidbody)Instantiate(shortc, new Vector3(10,10,10),Quaternion.identity);
-	b.GetComponent<shortcuthit>().target = @"D:\Users\Simon\Desktop\w";
-	b = (Rigidbody)Instantiate(shortc, new Vector3(10.5f,20.0f,10.0f),Quaternion.identity);
-	b.GetComponent<shortcuthit>().target = @"D:\Users\Simon\Desktop\v";	
-	*/
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 	
 	GameObject newText(string text,float x,float y,float z)
