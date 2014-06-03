@@ -53,19 +53,68 @@ public class Wallpapers : MonoBehaviour {
 		string path = "";
 		foreach(XmlNode n1 in xml.FirstChild.ChildNodes)
 		{
-			foreach(XmlNode n2 in n1.ChildNodes)
+			switch(n1.Name)
 			{
-				switch(n2.Name)
+			case "northwall":
+				foreach(XmlNode n2 in n1.ChildNodes)
 				{
-			    
-				case "path":
-					path = n2.InnerText;
-					//Debug.Log("Got wallpaper path: " + path);
-					break;
+					switch(n2.Name)
+					{
+						
+					case "path":
+						path = n2.InnerText;
+						//Debug.Log("Got wallpaper path: " + path);
+						break;
+					}
+					data.Add(path);
 				}
-				
+				break;
+			
+			case "eastwall":
+				foreach(XmlNode n2 in n1.ChildNodes)
+				{
+					switch(n2.Name)
+					{
+						
+					case "path":
+						path = n2.InnerText;
+						//Debug.Log("Got wallpaper path: " + path);
+						break;
+					}
+					data.Add(path);
+				}
+				break;
+
+			case "southwall":
+				foreach(XmlNode n2 in n1.ChildNodes)
+				{
+					switch(n2.Name)
+					{
+						
+					case "path":
+						path = n2.InnerText;
+						//Debug.Log("Got wallpaper path: " + path);
+						break;
+					}
+					data.Add(path);
+				}
+				break;
+
+			case "westwall":
+				foreach(XmlNode n2 in n1.ChildNodes)
+				{
+					switch(n2.Name)
+					{
+						
+					case "path":
+						path = n2.InnerText;
+						//Debug.Log("Got wallpaper path: " + path);
+						break;
+					}
+					data.Add(path);
+				}
+				break;
 			}
-			data.Add(path);
 		}
 		xml.Save(configPath+shortcutConfig);		
 		
@@ -134,19 +183,19 @@ public class Wallpapers : MonoBehaviour {
 		XmlNode x = xml.CreateElement("wallpapers");
 		xml.AppendChild(x);
 
-		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.AppendChild(xml.CreateElement("northwall"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
 		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\northwall.jpg";
 
-		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.AppendChild(xml.CreateElement("eastwall"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
 		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\eastwall.jpg";
 
-		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.AppendChild(xml.CreateElement("southwall"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
 		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\southwall.jpg";
 
-		x.AppendChild(xml.CreateElement("wallpaper"));
+		x.AppendChild(xml.CreateElement("westwall"));
 		x.LastChild.AppendChild(xml.CreateElement("path"));
 		//x.LastChild.LastChild.InnerText = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+@"\3ddesktop\icons\westwall.jpg";
 
@@ -154,6 +203,74 @@ public class Wallpapers : MonoBehaviour {
 		xml.Save(configPath+shortcutConfig);
 	}
 
+	public void changewallpapers (string northwallpath, string eastwallpath, string southwallpath, string westwallpath)
+	{
+		XmlDocument xml = new XmlDocument();
+		xml.Load(configPath+shortcutConfig);
+		try
+		{
+		//foreach (XmlElement element in xml.ChildNodes)
+		foreach (XmlNode element in xml.FirstChild.ChildNodes)
+		{
+
+
+			switch (element.Name)
+			{
+			case "northwall":
+				foreach (XmlNode child in element.ChildNodes)
+				{
+					Debug.Log("De elmeent nem hez ben fund: " +child.Name);
+					if (child.Name == "path")
+					{
+						element.InnerText = northwallpath;
+					}
+				}
+				//Debug.Log("Overwriting color_part_red: " + Convert.ToString(r));
+				break;
+			case "eastwall":
+				foreach (XmlNode child in element.ChildNodes)
+				{
+					Debug.Log("De elmeent nem hez ben fund: " +child.Name);
+					if (child.Name == "path")
+					{
+						element.InnerText = eastwallpath;
+					}
+				}
+				//Debug.Log("Overwriting color_part_green: " + Convert.ToString(g));
+				break;
+			case "southwall":
+				foreach (XmlNode child in element.ChildNodes)
+				{
+					Debug.Log("De elmeent nem hez ben fund: " +child.Name);
+					if (child.Name == "path")
+					{
+						element.InnerText = southwallpath;
+					}
+				}
+				//Debug.Log("Overwriting color_part_blue: " + Convert.ToString(b));
+				break;
+			case "westwall":
+				foreach (XmlNode child in element.ChildNodes)
+				{
+					Debug.Log("De elmeent nem hez ben fund: " +child.Name);
+					if (child.Name == "path")
+					{
+						element.InnerText = westwallpath;
+					}
+				}
+				//Debug.Log("Overwriting color_part_alpha: " + Convert.ToString(a));
+				break;
+
+			}
+
+		}
+		}
+		catch
+		{
+		}
+		//xml.Save(configPath+shortcutConfig);
+		//setcrosshair();
+	}
 
 	static Texture2D GetTextureFromImage(string path)
 	{
