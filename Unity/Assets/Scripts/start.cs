@@ -19,6 +19,8 @@ public class start : MonoBehaviour {
 	public int countx = 15;
 	public int county = 8;
 
+	public ControlControl cc;
+
 	public static SCStorage store;
 	
 	// Use this for initialization
@@ -37,7 +39,8 @@ public class start : MonoBehaviour {
 		store.loadFromDir(0,desktop);
 		//store.loadFromDir(0,publicdesktop);
 
-		Screen.lockCursor = true;
+		cc.pausegui.enabled = true;
+		cc.pause();
 	}
 	
 	GameObject newText(string text,float x,float y,float z)
