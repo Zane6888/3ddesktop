@@ -182,10 +182,10 @@ public class PauseGui : MonoBehaviour {
 			if(GUI.Button (new Rect(Screen.width/2 +425,Screen.height/2 +85,80,50),"Back"))
 				BackWallpapers();
 
-			Northwall = GUI.TextField (new Rect(Screen.width/2+385, Screen.height/2-25,130,20),Northwall,3);
-			Eastwall = GUI.TextField (new Rect(Screen.width/2+385, Screen.height/2,130,20),Eastwall,3);
-			Southwall = GUI.TextField (new Rect(Screen.width/2+385,Screen.height/2+25,130,20),Southwall,3);
-			Westwall = GUI.TextField (new Rect(Screen.width/2+385,Screen.height/2+50,130,20),Westwall,3);
+			Northwall = GUI.TextField (new Rect(Screen.width/2+385, Screen.height/2-25,130,20),Northwall);
+			Eastwall = GUI.TextField (new Rect(Screen.width/2+385, Screen.height/2,130,20),Eastwall);
+			Southwall = GUI.TextField (new Rect(Screen.width/2+385,Screen.height/2+25,130,20),Southwall);
+			Westwall = GUI.TextField (new Rect(Screen.width/2+385,Screen.height/2+50,130,20),Westwall);
 			
 			GUI.Label(new Rect(Screen.width/2+335,Screen.height/2-25, 40, 20), "North:");
 			GUI.Label(new Rect(Screen.width/2+335,Screen.height/2, 40, 20), "East:");
@@ -432,7 +432,7 @@ public class PauseGui : MonoBehaviour {
 		}
 		catch (Exception e)
 		{
-			UnityEngine.Debug.Log ("Failed to draw crosshair. String instead of number? Path valid?");
+			UnityEngine.Debug.Log ("Failed to draw crosshair. String instead of number? Is the path valid?");
 		}
 	}
 
@@ -447,12 +447,13 @@ public class PauseGui : MonoBehaviour {
 	{
 		try
 		{
-			this.gameObject.GetComponent<Wallpapers>().changewallpapers(Northwall, Eastwall, Southwall, Westwall);
+		this.gameObject.GetComponent<Wallpapers>().changewallpapers(Northwall, Eastwall, Southwall, Westwall);
 		}
 		catch (Exception e)
 		{
-			UnityEngine.Debug.Log ("Failed to draw wallpapers. Path valid?");
+			UnityEngine.Debug.Log("Failed to draw wallpapers. Is the path valid?");
 		}
+
 	}
 
 	void BackWallpapers()
