@@ -63,9 +63,8 @@ public class IconGui : MonoBehaviour {
 
 		foreach(string s in points)
 		{
-
 			GameObject o = (GameObject)Instantiate(menu,new Vector3(0,i * 0.21f,0),new Quaternion());
-			o.tag = "menu_" + s;
+			o.transform.FindChild("menuPlane").tag = "menu_" + s;
 			o.transform.parent = container.transform;
 			TextMesh txt = (TextMesh)o.transform.FindChild("text").GetComponent(typeof (TextMesh));
 			txt.text = s;

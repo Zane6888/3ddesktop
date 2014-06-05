@@ -57,12 +57,20 @@ public class ShortcutData
 	public static string basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\3ddesktop";
 	public static string iconPath = basePath+@"\icons";
 	
-	public ShortcutData(string name,string path)
+	public ShortcutData(string name,string path):this()
 	{
 		this.name = name;
 		this.path = path;
 	}
-	public ShortcutData(){}
+	public ShortcutData()
+	{
+		_wall = -1;
+		_x = -1;
+		_y = -1;
+		modelEnabled = false;
+		extensionStandard = false;
+		iconId = -1;
+	}
 
 	private void setName(string name, GameObject nameObject)
 	{
@@ -74,10 +82,17 @@ public class ShortcutData
 		TextMesh txt = (TextMesh)nameObject.transform.FindChild("text").GetComponent(typeof (TextMesh));
 		txt.text = name;
 	}
-
 	public void setPosition(int wall, int x, int y)
 	{
-
+		setPosition(wall,x,y,true);
+	}
+	public void setPosition(int wall, int x, int y,bool updateconfig)
+	{
+		_wall = wall;
+		_x = x;
+		_y = y;
+		if(updateconfig)
+			ReadConfig.updateConfig(this);
 	}
 
 	public void rename(string newName, bool keepOSFilename)
@@ -100,27 +115,43 @@ public class ShortcutData
 		if(!extensionStandard)
 			p = iconPath+@"\"+iconId+".png";
 		else
-		{
-			
+		{	
 			p = iconPath+@"\"+Path.GetExtension(path).Substring(1)+".png";
 		}
-		Debug.Log(p);
+
 		Material m = new Material(Shader.Find("Transparent/Diffuse"));
 		Texture2D tex = new Texture2D(128,128);
 		tex.LoadImage(File.ReadAllBytes(p));
 		m.SetTexture("_MainTex",tex);
 		return m;
 	}
+
+	public bool hasTexture()
+	{
+		if(iconId != -1)
+			if(extensionStandard)
+				return File.Exists(iconPath+@"\"+Path.GetExtension(path).Substring(1)+".png");
+			else 
+				return File.Exists(iconPath+@"\"+iconId+".png");
+		return false;
+	}
 	
 	public void loadIcon(string _iconPath)
 	{
 		Texture2D tex = new Texture2D(128,128);
 		tex.LoadImage(File.ReadAllBytes(_iconPath));
- 		using(FileStream f = new FileStream(iconPath+@"\"+ReadConfig.getNextIconId()+".png",FileMode.Create,FileAccess.Write))
+		setIcon(tex);
+	}
+
+	public void setIcon(Texture2D tex)
+	{
+		int id = ReadConfig.getNextIconId();
+		using(FileStream f = new FileStream(iconPath+@"\"+id+".png",FileMode.Create,FileAccess.Write))
 		{
 			byte[] b = tex.EncodeToPNG();
 			f.Write(b,0,b.Length);
 		}
+		iconId = id;
 	}
 
 	public void run()
