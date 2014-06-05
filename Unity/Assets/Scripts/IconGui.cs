@@ -25,7 +25,7 @@ public class IconGui : MonoBehaviour {
 		Vector3 sLoc = shortCut.transform.position;
 		Vector3 pLoc = player.transform.position;
 		Vector3 add;
-		float baseAdd = 0.2f;
+		float baseAdd = 0.3f;
 		GameObject menu = right;
 		GameObject cam = player.transform.FindChild("Main Camera").gameObject;
 
@@ -40,17 +40,17 @@ public class IconGui : MonoBehaviour {
 		else if(rot == Quaternion.AngleAxis(90,Vector3.up))
 		    {
 			menu = pLoc.x >= sLoc.x ? left : right;
-			add = new Vector3(menu == left ? baseAdd : -1 * baseAdd,0f,-1 * baseAdd);
+			add = new Vector3(menu != left ? baseAdd : -1 * baseAdd,0f,-1 * baseAdd);
 		}
 		else if(rot == Quaternion.AngleAxis(180,Vector3.up))
 			{
 			menu = pLoc.z <= sLoc.z ? left : right;
 			add = new Vector3(-1 * baseAdd,0f,menu == left ? baseAdd : -1 * baseAdd);
 		}
-		else if(rot == Quaternion.AngleAxis(-90,Vector3.up))
+		else if(rot == Quaternion.AngleAxis(270,Vector3.up))
 		    {
 			menu = pLoc.x <= sLoc.x ? left : right;
-			add = new Vector3(menu == left ? -1 * baseAdd : baseAdd,0f,baseAdd);
+			add = new Vector3(menu != left ? -1 * baseAdd : baseAdd,0f,baseAdd);
 		}
 		else
 		{
@@ -71,7 +71,7 @@ public class IconGui : MonoBehaviour {
 			currentMenu.Add(o);
 			i++;
 		}
-		container.transform.position = new Vector3(sLoc.x +0.1f,sLoc.y,sLoc.z+0.1f) + add;
+		container.transform.position = new Vector3(sLoc.x,sLoc.y,sLoc.z) + add;
 		container.transform.rotation = finalRot;
 
 	}
