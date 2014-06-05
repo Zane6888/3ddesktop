@@ -119,7 +119,7 @@ public class ShortcutData
 			p = iconPath+@"\"+Path.GetExtension(path).Substring(1)+".png";
 		}
 
-		Material m = new Material(Shader.Find("Transparent/Diffuse"));
+		Material m = new Material(Shader.Find("Diffuse"));
 		Texture2D tex = new Texture2D(128,128);
 		tex.LoadImage(File.ReadAllBytes(p));
 		m.SetTexture("_MainTex",tex);
