@@ -330,15 +330,15 @@ public class PauseGui : MonoBehaviour {
 	{
 		if(ShutdownSource==0)
 		{
-			Process.Start ("shutdown","/l");
+			Process.Start ("shutdown","/l /t 1");
 		}
 		if(ShutdownSource==1)
 		{
-			Process.Start ("shutdown","/r");
+			Process.Start ("shutdown","/r /t 1");
 		}
 		if(ShutdownSource==2)
 		{
-			Process.Start ("shutdown","/s");
+			Process.Start ("shutdown","/s /t 1");
 		}
 	}
 
